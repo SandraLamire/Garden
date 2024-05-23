@@ -8,9 +8,13 @@ import java.util.Optional;
 public interface PlantService {
 
     Optional<Plant> getOne(Integer idPlant);
+
     List<Plant> getAll();
-    void add(Plant plant);
-    void edit(Plant plant);
-    void delete(Plant plant);
+
+    void addPlant(Plant plant);
+
+    void editPlant(Plant plant);
+
+    void deletePlant(Plant plant);
 
 }

@@ -27,17 +27,17 @@ public class SquareServiceImpl implements SquareService {
     }
 
     @Override
-    public void add(Square square) {
+    public void addSquare(Square square) {
         this.squareRepository.save(square);
     }
 
     @Override
-    public void edit(Square square) {
+    public void editSquare(Square square) {
         this.squareRepository.save(square);
     }
 
     @Override
-    public void delete(Square square) {
+    public void deleteSquare(Square square) {
         this.squareRepository.delete(square);
     }
 }

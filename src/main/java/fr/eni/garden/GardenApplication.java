@@ -8,6 +8,9 @@ import fr.eni.garden.enums.ExposureType;
 import fr.eni.garden.enums.PlantType;
 import fr.eni.garden.enums.SoilType;
 import fr.eni.garden.service.GardenService;
+import fr.eni.garden.service.PlantService;
+import fr.eni.garden.service.PlantingService;
+import fr.eni.garden.service.SquareService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -18,9 +21,15 @@ import java.time.LocalDate;
 public class GardenApplication implements CommandLineRunner {
 
     private final GardenService gardenService;
+    private final SquareService squareService;
+    private final PlantingService plantingService;
+    private final PlantService plantService;
 
-    public GardenApplication(GardenService gardenService) {
+    public GardenApplication(GardenService gardenService, SquareService squareService, PlantingService plantingService, PlantService plantService) {
         this.gardenService = gardenService;
+        this.squareService = squareService;
+        this.plantingService = plantingService;
+        this.plantService = plantService;
     }
 
     public static void main(String[] args) {
@@ -31,9 +40,9 @@ public class GardenApplication implements CommandLineRunner {
     @Override
     public void run(String... args) {
 
-        Garden heaven = Garden.builder().name("Heaven").location("Stairway").gardenSurface(300).build();
-        Garden hell = Garden.builder().name("Hell").location("Highway").gardenSurface(900).build();
-        Garden purgatory = Garden.builder().name("Purgatory").location("Nowhere").gardenSurface(600).build();
+        Garden heaven = Garden.builder().name("Heaven").location("Stairway").city("Angel's city").gardenSurface(300).build();
+        Garden hell = Garden.builder().name("Hell").location("Highway").city("Devil's city").gardenSurface(900).build();
+        Garden purgatory = Garden.builder().name("Purgatory").location("Nowhere").city("Other's city").gardenSurface(600).build();
 
         Square squareHeaven1 = Square.builder().squareSurface(100).soilType(SoilType.CLAYEY).exposureType(ExposureType.SUN).garden(heaven).build();
         Square squareHeaven2 = Square.builder().squareSurface(150).soilType(SoilType.SANDY).exposureType(ExposureType.SHADE).garden(heaven).build();
@@ -59,8 +68,38 @@ public class GardenApplication implements CommandLineRunner {
         Planting planting4 = Planting.builder().quantity(5).setUpDate(LocalDate.now().plusDays(4)).harvestDate(LocalDate.now().plusDays(11)).square(squarePurgatory1).plant(kale).build();
         Planting planting5 = Planting.builder().quantity(5).setUpDate(LocalDate.now().plusDays(5)).harvestDate(LocalDate.now().plusDays(12)).square(squarePurgatory1).plant(cauliflower).build();
 
+        this.plantService.addPlant(beefHeartTomato);
+        this.plantService.addPlant(cherryTomato);
+        this.plantService.addPlant(newPotato);
+        this.plantService.addPlant(redPotato);
+        this.plantService.addPlant(kale);
+        this.plantService.addPlant(cauliflower);
+        
+
+        this.gardenService.addGarden(heaven);
+        this.squareService.addSquare(squareHeaven1);
+        this.squareService.addSquare(squareHeaven2);
+        this.plantingService.addPlanting(planting1);
+        this.plantingService.addPlanting(planting2);
 
 
+        this.gardenService.addGarden(hell);
+        this.squareService.addSquare(squareHell1);
+        this.squareService.addSquare(squareHell2);
+        this.plantingService.addPlanting(planting3);
+
+
+        this.gardenService.addGarden(purgatory);
+        this.squareService.addSquare(squarePurgatory1);
+        this.squareService.addSquare(squarePurgatory2);
+        this.plantingService.addPlanting(planting4);
+        this.plantingService.addPlanting(planting5);
+
+
+        System.err.println("------------------");
+        System.err.println("garden's list");
+        this.gardenService.getGardens().forEach(System.err::println);
+        System.err.println("------------------");
 
 
     }

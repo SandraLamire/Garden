@@ -1,10 +1,7 @@
 package fr.eni.garden.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDate;
 
@@ -31,10 +28,21 @@ public class Planting {
 
     @ManyToOne
     @JoinColumn
+    @ToString.Exclude
     private Square square;
 
     @ManyToOne
     @JoinColumn
     private Plant plant;
 
+    @Override
+    public String toString() {
+        return "\n\t\t" + "Planting{" +
+                "idPlanting=" + idPlanting +
+                ", quantity=" + quantity +
+                ", setUpDate=" + setUpDate +
+                ", harvestDate=" + harvestDate +
+                ", plant=" + plant +
+                '}';
+    }
 }

@@ -18,7 +18,7 @@ public class PlantingServiceImpl implements PlantingService {
     }
 
     @Override
-    public void addPanting(Planting planting) {
+    public void addPlanting(Planting planting) {
         this.plantingRepository.save(planting);
     }
 

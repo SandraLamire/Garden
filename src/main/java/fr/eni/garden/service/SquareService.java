@@ -8,8 +8,12 @@ import java.util.Optional;
 public interface SquareService {
 
     Optional<Square> getOne(Integer idSquare);
+
     List<Square> getAll();
-    void add(Square square);
-    void edit(Square square);
-    void delete(Square square);
+
+    void addSquare(Square square);
+
+    void editSquare(Square square);
+
+    void deleteSquare(Square square);
 }

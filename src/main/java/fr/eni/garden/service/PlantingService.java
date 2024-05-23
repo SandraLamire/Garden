@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface PlantingService {
-    void addPanting(Planting planting);
+    void addPlanting(Planting planting);
 
     void editPlanting(Planting planting);
 

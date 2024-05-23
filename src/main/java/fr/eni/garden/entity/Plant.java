@@ -31,5 +31,14 @@ public class Plant {
     @Column
     private Integer plantSurface;
 
-
+    @Override
+    public String toString() {
+        return "\n\t\t\t" + "Plant{" +
+                "idPlant=" + idPlant +
+                ", name='" + name + '\'' +
+                ", plantType=" + plantType +
+                ", variety='" + variety + '\'' +
+                ", plantSurface=" + plantSurface +
+                '}';
+    }
 }

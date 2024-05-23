@@ -34,4 +34,15 @@ public class Garden {
     @OneToMany(mappedBy = "garden", fetch = FetchType.EAGER)
     private List<Square> squareList;
 
+    @Override
+    public String toString() {
+        return "Garden{" +
+                "idGarden=" + idGarden +
+                ", name='" + name + '\'' +
+                ", gardenSurface=" + gardenSurface +
+                ", location='" + location + '\'' +
+                ", city='" + city + '\'' +
+                ", squareList=" + squareList +
+                '}';
+    }
 }

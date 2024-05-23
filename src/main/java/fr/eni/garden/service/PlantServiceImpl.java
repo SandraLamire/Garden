@@ -27,17 +27,17 @@ public class PlantServiceImpl implements PlantService {
     }
 
     @Override
-    public void add(Plant plant) {
+    public void addPlant(Plant plant) {
         this.plantRepository.save(plant);
     }
 
     @Override
-    public void edit(Plant plant) {
+    public void editPlant(Plant plant) {
         this.plantRepository.save(plant);
     }
 
     @Override
-    public void delete(Plant plant) {
+    public void deletePlant(Plant plant) {
         this.plantRepository.delete(plant);
     }
 }
