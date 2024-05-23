@@ -31,4 +31,5 @@ public class Plant {
     @Column
     private Integer plantSurface;
 
+
 }

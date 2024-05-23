@@ -6,6 +6,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Entity
 @Data
 @Builder
@@ -28,5 +30,8 @@ public class Garden {
 
     @Column
     private String city;
+
+    @OneToMany(mappedBy = "garden", fetch = FetchType.EAGER)
+    private List<Square> squareList;
 
 }

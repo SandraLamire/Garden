@@ -28,5 +28,13 @@ public class Planting {
 
     @Column
     private LocalDate harvestDate;
-    
+
+    @ManyToOne
+    @JoinColumn
+    private Square square;
+
+    @ManyToOne
+    @JoinColumn
+    private Plant plant;
+
 }

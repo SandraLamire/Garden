@@ -8,6 +8,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @Entity
 @AllArgsConstructor
@@ -30,6 +32,10 @@ public class Square {
     private ExposureType exposureType;
 
     @ManyToOne
+    @JoinColumn
     private Garden garden;
+
+    @OneToMany(mappedBy = "square", fetch = FetchType.EAGER)
+    private List<Planting> plantingList;
 
 }
