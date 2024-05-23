@@ -23,7 +23,7 @@ public class GardenServiceImpl implements GardenService {
     }
 
     @Override
-    public void updateGarden(Garden garden) {
+    public void editGarden(Garden garden) {
         this.gardenRepository.save(garden);
     }
 
