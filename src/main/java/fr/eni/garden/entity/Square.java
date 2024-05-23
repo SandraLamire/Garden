@@ -1,32 +1,35 @@
 package fr.eni.garden.entity;
 
+import fr.eni.garden.enums.ExposureType;
+import fr.eni.garden.enums.SoilType;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Entity
 @Data
-@Builder
+@Entity
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 @Table
-public class Garden {
+public class Square {
+
     @Id
     @GeneratedValue
-    private Integer idGarden;
+    private Integer idSquare;
 
     @Column
-    private String location;
+    private Integer squareSurface;
 
     @Column
-    private String name;
+    private SoilType soilType;
 
     @Column
-    private Integer gardenSurface;
+    private ExposureType exposureType;
 
-    @Column
-    private String city;
+    @ManyToOne
+    private Garden garden;
 
 }
