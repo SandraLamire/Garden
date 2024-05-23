@@ -20,13 +20,13 @@ public class Garden {
     private Integer idGarden;
 
     @Column
-    private String location;
-
-    @Column
     private String name;
 
     @Column
     private Integer gardenSurface;
+
+    @Column
+    private String location;
 
     @Column
     private String city;
