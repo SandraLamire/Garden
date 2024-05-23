@@ -2,6 +2,7 @@ package fr.eni.garden.service;
 
 
 import fr.eni.garden.entity.Garden;
+
 import fr.eni.garden.repository.GardenRepository;
 import org.springframework.stereotype.Service;
 
@@ -41,4 +42,5 @@ public class GardenServiceImpl implements GardenService {
     public List<Garden> getGardens() {
         return (List<Garden>) this.gardenRepository.findAll();
     }
+
 }

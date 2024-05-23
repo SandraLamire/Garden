@@ -45,4 +45,8 @@ public class Garden {
                 ", squareList=" + squareList +
                 '}';
     }
+
+    public Integer getRemainingSurface(){
+        return this.squareList.isEmpty() ? this.gardenSurface : this.squareList.stream().mapToInt(Square::getSquareSurface).sum();
+    }
 }
