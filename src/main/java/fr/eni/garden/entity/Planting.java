@@ -45,4 +45,8 @@ public class Planting {
                 ", plant=" + plant +
                 '}';
     }
+
+    public Integer getPlantingSurface(){
+        return this.getPlant().getPlantSurface() * this.getQuantity();
+    }
 }

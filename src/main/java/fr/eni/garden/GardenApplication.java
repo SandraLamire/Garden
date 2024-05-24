@@ -7,7 +7,6 @@ import fr.eni.garden.entity.Square;
 import fr.eni.garden.enums.ExposureType;
 import fr.eni.garden.enums.PlantType;
 import fr.eni.garden.enums.SoilType;
-import fr.eni.garden.exception.SquareException;
 import fr.eni.garden.service.GardenService;
 import fr.eni.garden.service.PlantService;
 import fr.eni.garden.service.PlantingService;
@@ -59,8 +58,8 @@ public class GardenApplication implements CommandLineRunner {
         Plant cherryTomato = Plant.builder().name("Tomato").plantType(PlantType.FRUIT).variety("Cherry").plantSurface(8).build();
         Plant newPotato = Plant.builder().name("Potato").plantType(PlantType.ROOT).variety("New").plantSurface(6).build();
         Plant redPotato = Plant.builder().name("Potato").plantType(PlantType.ROOT).variety("Red").plantSurface(5).build();
-        Plant kale = Plant.builder().name("Cabbage").plantType(PlantType.ROOT).variety("Kale").plantSurface(15).build();
-        Plant cauliflower = Plant.builder().name("Cabbage").plantType(PlantType.ROOT).variety("Cauliflower").plantSurface(20).build();
+        Plant kale = Plant.builder().name("Cabbage").plantType(PlantType.LEAF).variety("Kale").plantSurface(15).build();
+        Plant cauliflower = Plant.builder().name("Cabbage").plantType(PlantType.LEAF).variety("Cauliflower").plantSurface(20).build();
 
         Planting planting1 = Planting.builder().quantity(6).setUpDate(LocalDate.now().plusDays(1)).harvestDate(LocalDate.now().plusDays(8)).square(squareHeaven1).plant(beefHeartTomato).build();
         Planting planting2 = Planting.builder().quantity(5).setUpDate(LocalDate.now().plusDays(2)).harvestDate(LocalDate.now().plusDays(9)).square(squareHeaven1).plant(cherryTomato).build();
@@ -94,8 +93,8 @@ public class GardenApplication implements CommandLineRunner {
             this.squareService.addSquare(squarePurgatory2);
             this.plantingService.addPlanting(planting4);
             this.plantingService.addPlanting(planting5);
-        } catch (SquareException squareException) {
-                System.err.println(squareException.getMessage());
+        } catch (Exception exception) {
+            System.err.println(exception.getMessage());
         }
 
 

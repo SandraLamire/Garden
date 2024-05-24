@@ -2,6 +2,7 @@ package fr.eni.garden.service;
 
 
 import fr.eni.garden.entity.Planting;
+import fr.eni.garden.exception.PlantingException;
 import fr.eni.garden.repository.PlantingRepository;
 import org.springframework.stereotype.Service;
 
@@ -18,12 +19,18 @@ public class PlantingServiceImpl implements PlantingService {
     }
 
     @Override
-    public void addPlanting(Planting planting) {
+    public void addPlanting(Planting planting) throws PlantingException {
+        if (planting.getSquare().getSquareRemainingSurface() < planting.getPlantingSurface()) {
+            throw new PlantingException("There is not enough surface in this square");
+        }
         this.plantingRepository.save(planting);
     }
 
     @Override
-    public void editPlanting(Planting planting) {
+    public void editPlanting(Planting planting) throws PlantingException {
+        if (planting.getSquare().getSquareRemainingSurface() < planting.getPlantingSurface()) {
+            throw new PlantingException("There is not enough surface in this square");
+        }
         this.plantingRepository.save(planting);
     }
 

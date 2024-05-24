@@ -29,7 +29,7 @@ public class SquareServiceImpl implements SquareService {
 
     @Override
     public void addSquare(Square square) throws SquareException{
-        if (square.getGarden().getRemainingSurface() < square.getSquareSurface()) {
+        if (square.getGarden().getGardenRemainingSurface() < square.getSquareSurface()) {
             throw new SquareException("There is not enough surface in this garden");
         }
         this.squareRepository.save(square);
@@ -37,7 +37,7 @@ public class SquareServiceImpl implements SquareService {
 
     @Override
     public void editSquare(Square square) throws SquareException {
-        if (square.getGarden().getRemainingSurface() < square.getSquareSurface()) {
+        if (square.getGarden().getGardenRemainingSurface() < square.getSquareSurface()) {
             throw new SquareException("There is not enough surface in this garden");
         }
         this.squareRepository.save(square);    }

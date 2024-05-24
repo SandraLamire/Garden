@@ -46,4 +46,10 @@ public class Square {
                 ", plantingList=" + plantingList +
                 '}';
     }
+
+    public Integer getSquareRemainingSurface(){
+        return this.plantingList.isEmpty() ?
+                this.squareSurface :
+                this.plantingList.stream().mapToInt(Planting::getPlantingSurface).sum();
+    }
 }
