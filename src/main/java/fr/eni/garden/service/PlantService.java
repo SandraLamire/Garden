@@ -1,6 +1,7 @@
 package fr.eni.garden.service;
 
 import fr.eni.garden.entity.Plant;
+import fr.eni.garden.exception.PlantException;
 
 import java.util.List;
 import java.util.Optional;
@@ -11,9 +12,9 @@ public interface PlantService {
 
     List<Plant> getAll();
 
-    void addPlant(Plant plant);
+    void addPlant(Plant plant) throws PlantException;
 
-    void editPlant(Plant plant);
+    void editPlant(Plant plant) throws PlantException;
 
     void deletePlant(Plant plant);
 

@@ -41,4 +41,8 @@ public class Plant {
                 ", plantSurface=" + plantSurface +
                 '}';
     }
+
+    public String getNameAndVariety(){
+        return name + " " + variety;
+    }
 }
