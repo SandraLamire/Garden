@@ -1,6 +1,7 @@
 package fr.eni.garden.service;
 
 
+import fr.eni.garden.entity.Plant;
 import fr.eni.garden.entity.Planting;
 import fr.eni.garden.exception.PlantingException;
 
@@ -17,4 +18,6 @@ public interface PlantingService {
     Optional<Planting> getPlanting(Integer idPlanting);
 
     List<Planting> getPlantings();
+
+    List<Planting> getPlantingsByPlant(Plant plant);
 }

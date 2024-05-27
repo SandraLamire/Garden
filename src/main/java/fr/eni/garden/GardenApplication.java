@@ -70,6 +70,7 @@ public class GardenApplication implements CommandLineRunner {
         Planting planting5 = Planting.builder().quantity(5).setUpDate(LocalDate.now().plusDays(5)).harvestDate(LocalDate.now().plusDays(12)).square(squarePurgatory1).plant(cauliflower).build();
 
         try {
+            System.err.println("--ADDING PLATS--");
             this.plantService.addPlant(beefHeartTomato);
             this.plantService.addPlant(cherryTomato);
             this.plantService.addPlant(newPotato);
@@ -77,30 +78,32 @@ public class GardenApplication implements CommandLineRunner {
             this.plantService.addPlant(kale);
             this.plantService.addPlant(cauliflower);
 
+            System.err.println("--ADDING GARDEN HEAVEN--");
             this.gardenService.addGarden(heaven);
             this.squareService.addSquare(squareHeaven1);
             this.squareService.addSquare(squareHeaven2);
             this.plantingService.addPlanting(planting1);
             this.plantingService.addPlanting(planting2);
 
+            System.err.println("--ADDING GARDEN HELL--");
             this.gardenService.addGarden(hell);
             this.squareService.addSquare(squareHell1);
             this.squareService.addSquare(squareHell2);
             this.plantingService.addPlanting(planting3);
 
+            System.err.println("--ADDING GARDEN PURGATORY--");
             this.gardenService.addGarden(purgatory);
             this.squareService.addSquare(squarePurgatory1);
             this.squareService.addSquare(squarePurgatory2);
             this.plantingService.addPlanting(planting4);
             this.plantingService.addPlanting(planting5);
+
         } catch (Exception exception) {
             System.err.println(exception.getMessage());
         }
 
 
-        System.err.println("------------------");
-        System.err.println("garden's list");
+        System.err.println("--GARDEN LIST--");
         this.gardenService.getGardens().forEach(System.err::println);
-        System.err.println("------------------");
     }
 }
