@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Garden</title>
+</head>
+<body>
+<div>
+    <h2>Add Garden</h2>
+</div>
+
+<div>
+    <form method="post" th:action="@{/garden/add}" th:object="${newGarden}">
+        <div>
+            <label for="name"> Name :
+                <input id="name" th:field="*{name}" type="text"/>
+                <span th:errors="*{name}" th:if="${#fields.hasErrors('name')}"></span>
+            </label>
+        </div>
+        <div>
+            <label for="gardenSurface"> Garden Surface :
+                <input id="gardenSurface" th:field="*{gardenSurface}" type="number"/>
+                <span th:errors="*{gardenSurface}" th:if="${#fields.hasErrors('gardenSurface')}"></span>
+            </label>
+        </div>
+        <div>
+            <label for="location"> Location :
+                <input id="location" th:field="*{location}" type="text"/>
+                <span th:errors="*{location}" th:if="${#fields.hasErrors('location')}"></span>
+            </label>
+        </div>
+        <div>
+            <label for="city"> City :
+                <input id="city" th:field="*{city}" type="text"/>
+                <span th:errors="*{city}" th:if="${#fields.hasErrors('city')}"></span>
+            </label>
+        </div>
+        <button type="submit">Add</button>
+    </form>
+</div>
+</body>
+</html>

@@ -1,6 +1,8 @@
 package fr.eni.garden.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -20,15 +22,19 @@ public class Garden {
     private Integer idGarden;
 
     @Column
+    @NotBlank
     private String name;
 
     @Column
+    @NotNull
     private Integer gardenSurface;
 
     @Column
+    @NotBlank
     private String location;
 
     @Column
+    @NotBlank
     private String city;
 
     @OneToMany(mappedBy = "garden", fetch = FetchType.EAGER)
@@ -46,7 +52,7 @@ public class Garden {
                 '}';
     }
 
-    public Integer getGardenRemainingSurface(){
+    public Integer getGardenRemainingSurface() {
         return this.squareList.isEmpty() ? this.gardenSurface : this.squareList.stream().mapToInt(Square::getSquareSurface).sum();
     }
 }

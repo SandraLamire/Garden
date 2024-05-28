@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Gardens</title>
+</head>
+<body>
+<h2>Gardens</h2>
+<div th:each="garden:${gardenList}">
+    <span th:text="${garden.name}"></span>
+    <span th:text="${garden.gardenSurface}"></span>
+    <span th:text="${garden.location}"></span>
+    <span th:text="${garden.city}"></span>
+    <span>
+        <button>
+            <a th:href="@{/garden/{idGarden}(idGarden=${garden.idGarden})}">Show a garden</a>
+        </button>
+    </span>
+</div>
+<a th:href="@{/garden/add}">Add a garden</a>
+</body>
+</html>
