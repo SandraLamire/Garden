@@ -9,9 +9,24 @@
     <h2 th:text="Garden + ' : ' + ${garden.name}"></h2>
 </div>
 <div>
-    <p th:text="Surface + ' : ' + ${garden.gardenSurface}"></p>
+    <p th:text="GardenSurface + ' : ' + ${garden.gardenSurface}"></p>
     <p th:text="Location + ' : ' + ${garden.location}"></p>
     <p th:text="City + ' : ' + ${garden.city}"></p>
+</div>
+<div>
+    <div>
+        <div>
+            <h4>Squares</h4>
+        </div>
+        <div>
+            <button><a th:href="@{/garden/{idGarden}/square/add(idGarden=${garden.idGarden})}">Add square</a></button>
+        </div>
+    </div>
+    <div th:each="square: ${garden.squareList}">
+        <span th:text="SquareSurface + ' : ' + ${square.squareSurface}"></span>
+        <span th:text="SoilType + ' : ' + ${square.soilType}"></span>
+        <span th:text="ExposureType + ' : ' + ${square.exposureType}"></span>
+    </div>
 </div>
 </body>
 </html>

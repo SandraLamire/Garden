@@ -5,6 +5,41 @@
     <title>Add Square</title>
 </head>
 <body>
+<div>
+    <h2>Add Square</h2>
+</div>
 
+<div>
+    <form method="post" th:action="@{/garden/{idGarden}/square/add(idGarden=${garden.idGarden})}" th:object="${newSquare}">
+        <div>
+            <label for="squareSurface"> Square Surface :
+                <input id="squareSurface" th:field="*{squareSurface}" type="number"/>
+                <span th:errors="*{squareSurface}" th:if="${#fields.hasErrors('squareSurface')}"></span>
+            </label>
+        </div>
+        <div>
+            <label for="soilType"> Soil Type :
+                <select id="soilType" name="soilType">
+                    <option th:each="soilType : ${soilTypes}"
+                            th:value="${soilType}" th:text="${soilType}"></option>
+                </select>
+            </label>
+        </div>
+        <div>
+            <label for="exposureType"> Exposure Type :
+                <select id="exposureType" name="exposureType">
+                    <option th:each="exposureType : ${exposureTypes}"
+                            th:value="${exposureType}" th:text="${exposureType}"></option>
+                </select>
+            </label>
+        </div>
+        <div th:if="${#fields.hasGlobalErrors()}">
+            <p th:each="err : ${#fields.globalErrors()}">
+                <span th:text="${err}"></span>
+            </p>
+        </div>
+        <button type="submit">Add</button>
+    </form>
+</div>
 </body>
 </html>
