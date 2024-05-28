@@ -5,6 +5,13 @@
     <title>Plants</title>
 </head>
 <body>
-
+<h2>Plants</h2>
+<div th:each="plant:${plantList}">
+    <span th:text="${plant.name}"></span>
+    <span th:text="${plant.plantType}"></span>
+    <span th:text="${plant.variety}"></span>
+    <span th:text="${plant.plantSurface}"></span>
+</div>
+<button><a th:href="@{/plant/add}">Add a plant</a></button>
 </body>
 </html>

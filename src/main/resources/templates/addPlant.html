@@ -5,6 +5,45 @@
     <title>Add Plant</title>
 </head>
 <body>
+<div>
+    <h2>Add Plant</h2>
+</div>
 
+<div>
+    <form method="post" th:action="@{/plant/add}" th:object="${newPlant}">
+        <div>
+            <label for="name"> Name :
+                <input id="name" th:field="*{name}" type="text"/>
+                <span th:errors="*{name}" th:if="${#fields.hasErrors('name')}"></span>
+            </label>
+        </div>
+        <div>
+            <label for="plantType"> Plant Type :
+                <select id="plantType" name="plantType">
+                    <option th:each="plantType : ${plantTypes}"
+                            th:value="${plantType}" th:text="${plantType}"></option>
+                </select>
+            </label>
+        </div>
+        <div>
+            <label for="variety"> Variety :
+                <input id="variety" th:field="*{variety}" type="text"/>
+                <span th:errors="*{variety}" th:if="${#fields.hasErrors('variety')}"></span>
+            </label>
+        </div>
+        <div>
+            <label for="plantSurface"> Plant Surface :
+                <input id="plantSurface" th:field="*{plantSurface}" type="number"/>
+                <span th:errors="*{plantSurface}" th:if="${#fields.hasErrors('plantSurface')}"></span>
+            </label>
+        </div>
+        <div th:if="${#fields.hasGlobalErrors()}">
+            <p th:each="err : ${#fields.globalErrors()}">
+                <span th:text="${err}"></span>
+            </p>
+        </div>
+        <button type="submit">Add</button>
+    </form>
+</div>
 </body>
 </html>
