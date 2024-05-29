@@ -7,8 +7,8 @@
     <div class="flex-initial w-5/6">
         <div class="bg-white border border-gray-200 rounded-lg shadow m-4 p-2">
             <div class="divide-x divide-gray-300">
-                <button type="button"
-                        class="px-2 text-md font-medium text-gray-500 focus:outline-none bg-white hover:text-blue-400 focus:z-10 focus:ring-4 focus:ring-gray-100">
+                <button class="px-2 text-md font-medium text-gray-500 focus:outline-none bg-white hover:text-blue-400 focus:z-10 focus:ring-4 focus:ring-gray-100"
+                        type="button">
                     <a th:href="@{/garden/{idGarden}(idGarden=${garden.idGarden})}">
                         <i class="icon-refresh"></i>
                         <span class="mx-2">Refresh</span>
@@ -18,11 +18,13 @@
         </div>
         <div>
             <div class="p-2 m-4">
-                <nav class="flex" aria-label="Breadcrumb">
+                <nav aria-label="Breadcrumb" class="flex">
                     <ol class="inline-flex items-center space-x-1 md:space-x-2 rtl:space-x-reverse">
                         <li class="inline-flex items-center">
-                            <a href="#" class="inline-flex items-center text-sm font-medium text-gray-500 hover:text-blue-600">
-                                <svg class="w-3 h-3 me-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                            <a class="inline-flex items-center text-sm font-medium text-gray-500 hover:text-blue-600"
+                               href="#">
+                                <svg aria-hidden="true" class="w-3 h-3 me-2.5" fill="currentColor"
+                                     viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                                     <path d="m19.707 9.293-2-2-7-7a1 1 0 0 0-1.414 0l-7 7-2 2a1 1 0 0 0 1.414 1.414L2 10.414V18a2 2 0 0 0 2 2h3a1 1 0 0 0 1-1v-4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v4a1 1 0 0 0 1 1h3a2 2 0 0 0 2-2v-7.586l.293.293a1 1 0 0 0 1.414-1.414Z"/>
                                 </svg>
                                 Home
@@ -30,18 +32,25 @@
                         </li>
                         <li>
                             <div class="flex items-center">
-                                <svg class="rtl:rotate-180 w-3 h-3 text-gray-500 mx-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
-                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
+                                <svg aria-hidden="true" class="rtl:rotate-180 w-3 h-3 text-gray-500 mx-1"
+                                     fill="none" viewBox="0 0 6 10" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="m1 9 4-4-4-4" stroke="currentColor" stroke-linecap="round"
+                                          stroke-linejoin="round" stroke-width="2"/>
                                 </svg>
-                                <a th:href="@{/garden}" class="ms-1 text-sm font-medium text-gray-500 hover:text-blue-600 md:ms-2">Gardens</a>
+                                <a class="ms-1 text-sm font-medium text-gray-500 hover:text-blue-600 md:ms-2"
+                                   th:href="@{/garden}">Gardens</a>
                             </div>
                         </li>
                         <li>
                             <div class="flex items-center">
-                                <svg class="rtl:rotate-180 w-3 h-3 text-gray-500 mx-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
-                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
+                                <svg aria-hidden="true" class="rtl:rotate-180 w-3 h-3 text-gray-500 mx-1"
+                                     fill="none" viewBox="0 0 6 10" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="m1 9 4-4-4-4" stroke="currentColor" stroke-linecap="round"
+                                          stroke-linejoin="round" stroke-width="2"/>
                                 </svg>
-                                <a th:href="@{/garden}" class="ms-1 text-sm font-medium text-gray-500 hover:text-blue-600 md:ms-2" th:text="${garden.name}"></a>
+                                <a class="ms-1 text-sm font-medium text-gray-500 hover:text-blue-600 md:ms-2"
+                                   th:href="@{/garden}"
+                                   th:text="${garden.name}"></a>
                             </div>
                         </li>
                     </ol>
@@ -49,11 +58,12 @@
             </div>
             <div class="bg-white border border-gray-200 rounded-lg shadow m-4 p-2">
                 <div class="px-2 py-1 flex justify-between items-center">
-                    <h2 th:text="${garden.name} + ' - ' + ${garden.gardenSurface} + 'cm²'" class="text-gray-500 text-bold text-2xl tracking-tight"></h2>
+                    <h2 class="text-gray-500 text-bold text-2xl tracking-tight"
+                        th:text="${garden.name} + ' - ' + ${garden.gardenSurface} + ' cm²'"></h2>
                     <div class="flex justify-between items-center">
                         <div class="text-gray-500 text-xl tracking-tight flex justify-between items-center">
                             <i class="icon-map-marker"></i>
-                            <p th:text="${garden.location} + ' - ' + ${garden.city}" class="mx-2"></p>
+                            <p class="mx-2" th:text="${garden.location} + ' - ' + ${garden.city}"></p>
                         </div>
                     </div>
                 </div>
@@ -64,31 +74,74 @@
                                 <h4 class="text-gray-500 text-bold text-xl tracking-tight">Squares</h4>
                             </div>
                             <div>
-                                <button type="button"
-                                        class="px-2 text-md font-medium text-gray-500 focus:outline-none bg-white hover:text-blue-400 focus:z-10 focus:ring-4 focus:ring-gray-100">
+                                <button class="px-2 text-md font-medium text-gray-500 focus:outline-none bg-white hover:text-blue-400 focus:z-10 focus:ring-4 focus:ring-gray-100"
+                                        type="button">
                                     <a th:href="@{/garden/{idGarden}/square/add(idGarden=${garden.idGarden})}">
                                         <i class="icon-plus"></i>
                                     </a>
                                 </button>
                             </div>
                         </div>
+
                         <div th:if="${garden.squareList.size() > 0} ">
                             <div th:each="square: ${garden.squareList}">
                                 <div class="flex justify-between items-center p-2">
-                                    <p th:text="'SquareSurface : ' + ${square.squareSurface} + 'cm²'" class="text-gray-500 text-md tracking-tight"></p>
+                                    <p class="text-gray-500 text-md tracking-tight"
+                                       th:text="'Square Surface : ' + ${square.squareSurface} + ' cm²'"></p>
                                     <div class="flex justify-between items-center">
                                         <div class="text-gray-500 text-md tracking-tight flex justify-between items-center">
                                             <i class="icon-tag"></i>
-                                            <p th:text="${square.soilType}" class="mx-2"></p>
+                                            <p class="mx-2" th:text="${square.soilType}"></p>
                                         </div>
                                         <div class="text-gray-500 text-md tracking-tight flex justify-between items-center">
                                             <i class="icon-cloud"></i>
-                                            <p th:text="${square.exposureType}" class="mx-2"></p>
+                                            <p class="mx-2" th:text="${square.exposureType}"></p>
                                         </div>
                                     </div>
                                 </div>
+                                <div class="px-4 py-1 divide-y divide-gray-300">
+                                    <div>
+                                        <div class="flex items-center">
+                                            <div>
+                                                <h4 class="text-gray-500 text-bold text-lg tracking-tight">
+                                                    Plantings</h4>
+                                            </div>
+                                            <div>
+                                                <button class="px-2 text-md font-medium text-gray-500 focus:outline-none bg-white hover:text-blue-400 focus:z-10 focus:ring-4 focus:ring-gray-100"
+                                                        type="button">
+                                                    <a th:href="@{/garden/{idGarden}/square/{idSquare}/planting/add(idGarden=${garden.idGarden},idSquare=${square.idSquare})}">
+                                                        <i class="icon-plus"></i>
+                                                    </a>
+                                                </button>
+                                            </div>
+                                        </div>
+
+                                        <div th:if="${square.plantingList.size() > 0} ">
+                                            <div th:each="planting: ${square.plantingList}">
+                                                <div class="flex justify-between items-center p-2">
+
+                                                    <p class="text-gray-500 text-md tracking-tight"
+                                                       th:text="${planting.plant.name} + ' ' + ${planting.plant.variety} + ' (' + ${planting.quantity} + ')'"></p>
+
+                                                    <p class="text-gray-500 text-md tracking-tight"
+                                                       th:text="'Planting Surface : ' + ${planting.plantingSurface} + ' cm²'"></p>
+
+                                                    <p class="text-gray-500 text-md tracking-tight"
+                                                       th:text="'Set-up Date : ' + ${planting.setUpDate}"></p>
+
+                                                    <p class="text-gray-500 text-md tracking-tight"
+                                                       th:text="'Harvest Date : ' + ${planting.harvestDate}"></p>
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
                             </div>
                         </div>
+
                     </div>
                 </div>
             </div>
