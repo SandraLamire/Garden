@@ -3,6 +3,7 @@ package fr.eni.garden.entity;
 import fr.eni.garden.enums.ExposureType;
 import fr.eni.garden.enums.SoilType;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 import java.util.List;
@@ -20,12 +21,15 @@ public class Square {
     private Integer idSquare;
 
     @Column
+    @NotNull
     private Integer squareSurface;
 
     @Column
+    @NotNull
     private SoilType soilType;
 
     @Column
+    @NotNull
     private ExposureType exposureType;
 
     @ManyToOne

@@ -1,42 +1,88 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Add Garden</title>
-</head>
-<body>
-<div>
-    <h2>Add Garden</h2>
-</div>
-
-<div>
-    <form method="post" th:action="@{/garden/add}" th:object="${newGarden}">
-        <div>
-            <label for="name"> Name :
-                <input id="name" th:field="*{name}" type="text"/>
-                <span th:errors="*{name}" th:if="${#fields.hasErrors('name')}"></span>
-            </label>
+<div th:replace="fragments/head :: head"></div>
+<body class="bg-gray-100">
+<div class="flex min-h-screen">
+    <div th:replace="fragments/aside :: aside"></div>
+    <div class="flex-initial w-5/6">
+        <div class="bg-white border border-gray-200 rounded-lg shadow m-4 p-2">
+            <div class="divide-x divide-gray-300">
+                <button type="button"
+                        class="px-2 text-md font-medium text-gray-500 focus:outline-none bg-white hover:text-blue-400 focus:z-10 focus:ring-4 focus:ring-gray-100">
+                    <a th:href="@{/garden/add}">
+                        <i class="icon-refresh"></i>
+                        <span class="mx-2">Refresh</span>
+                    </a>
+                </button>
+            </div>
         </div>
         <div>
-            <label for="gardenSurface"> Garden Surface :
-                <input id="gardenSurface" th:field="*{gardenSurface}" type="number"/>
-                <span th:errors="*{gardenSurface}" th:if="${#fields.hasErrors('gardenSurface')}"></span>
-            </label>
+            <div class="p-2 m-4">
+                <nav class="flex" aria-label="Breadcrumb">
+                    <ol class="inline-flex items-center space-x-1 md:space-x-2 rtl:space-x-reverse">
+                        <li class="inline-flex items-center">
+                            <a href="#" class="inline-flex items-center text-sm font-medium text-gray-500 hover:text-blue-600">
+                                <svg class="w-3 h-3 me-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                                    <path d="m19.707 9.293-2-2-7-7a1 1 0 0 0-1.414 0l-7 7-2 2a1 1 0 0 0 1.414 1.414L2 10.414V18a2 2 0 0 0 2 2h3a1 1 0 0 0 1-1v-4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v4a1 1 0 0 0 1 1h3a2 2 0 0 0 2-2v-7.586l.293.293a1 1 0 0 0 1.414-1.414Z"/>
+                                </svg>
+                                Home
+                            </a>
+                        </li>
+                        <li>
+                            <div class="flex items-center">
+                                <svg class="rtl:rotate-180 w-3 h-3 text-gray-500 mx-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
+                                </svg>
+                                <a th:href="@{/garden}" class="ms-1 text-sm font-medium text-gray-500 hover:text-blue-600 md:ms-2">Gardens</a>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="flex items-center">
+                                <svg class="rtl:rotate-180 w-3 h-3 text-gray-500 mx-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
+                                </svg>
+                                <a th:href="@{/garden/add}" class="ms-1 text-sm font-medium text-gray-500 hover:text-blue-600 md:ms-2">New Garden</a>
+                            </div>
+                        </li>
+                    </ol>
+                </nav>
+            </div>
+            <div class="bg-white border border-gray-200 rounded-lg shadow m-4 p-2">
+                <div class="px-2">
+                    <h2 class="text-2xl tracking-tight text-gray-500">New Garden</h2>
+                </div>
+                <div class="px-4 py-1 divide-y divide-gray-300">
+                    <div>
+                        <form method="post" th:action="@{/garden/add}" th:object="${newGarden}">
+                            <div class="py-2">
+                                <label for="name" class="block mb-2 text-sm font-medium text-gray-500">Name</label>
+                                <input th:field="*{name}" type="text" id="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"  placeholder="Name..." required />
+                                <p class="text-red-500" th:errors="*{name}" th:if="${#fields.hasErrors('name')}"></p>
+                            </div>
+                            <div class="py-2">
+                                <label for="gardenSurface" class="block mb-2 text-sm font-medium text-gray-500">Garden Surface</label>
+                                <input th:field="*{gardenSurface}" type="number" id="gardenSurface" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"  placeholder="0" required />
+                                <p class="text-red-500" th:errors="*{gardenSurface}" th:if="${#fields.hasErrors('gardenSurface')}"></p>
+                            </div>
+                            <div class="py-2">
+                                <label for="location" class="block mb-2 text-sm font-medium text-gray-500">Location</label>
+                                <input th:field="*{location}" type="text" id="location" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"  placeholder="Location..." required />
+                                <p class="text-red-500" th:errors="*{location}" th:if="${#fields.hasErrors('location')}"></p>
+                            </div>
+                            <div class="py-2">
+                                <label for="city" class="block mb-2 text-sm font-medium text-gray-500">City</label>
+                                <input th:field="*{city}" type="text" id="city" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"  placeholder="City..." required />
+                                <p class="text-red-500" th:errors="*{city}" th:if="${#fields.hasErrors('city')}"></p>
+                            </div>
+                            <div class="py-4 flex justify-end">
+                                <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Add</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div>
-            <label for="location"> Location :
-                <input id="location" th:field="*{location}" type="text"/>
-                <span th:errors="*{location}" th:if="${#fields.hasErrors('location')}"></span>
-            </label>
-        </div>
-        <div>
-            <label for="city"> City :
-                <input id="city" th:field="*{city}" type="text"/>
-                <span th:errors="*{city}" th:if="${#fields.hasErrors('city')}"></span>
-            </label>
-        </div>
-        <button type="submit">Add</button>
-    </form>
+    </div>
 </div>
 </body>
 </html>

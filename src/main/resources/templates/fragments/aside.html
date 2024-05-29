@@ -1,0 +1,24 @@
+<div th:fragment="aside" class="flex-initial w-1/6 p-4">
+    <aside id="default-sidebar" class="bg-white border border-gray-200 rounded-lg shadow px-1 py-2 min-h-full transition-transform -translate-x-full sm:translate-x-0" aria-label="Sidebar">
+        <div class="h-full px-3 py-4 overflow-y-auto dark:bg-gray-800">
+            <div class="text-3xl tracking-tight text-gray-500 flex items-center justify-center py-2">
+                <i class="icon-leaf"></i>
+                <span class="px-4">Garden</span>
+            </div>
+            <ul class="space-y-2 font-medium">
+                <li>
+                    <a th:href="@{/garden}" class="flex items-center p-2 text-gray-500 rounded-lg hover:bg-gray-100 group">
+                        <i class="icon-reorder"></i>
+                        <span class="ms-3">Gardens</span>
+                    </a>
+                </li>
+                <li>
+                    <a th:href="@{/plant}" class="flex items-center p-2 text-gray-500 rounded-lg hover:bg-gray-100 group">
+                        <i class="icon-leaf"></i>
+                        <span class="ms-3">Plants</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </aside>
+</div>
