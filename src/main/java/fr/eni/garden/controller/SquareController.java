@@ -57,4 +57,11 @@ public class SquareController {
         redirectAttributes.addAttribute("idGarden", idGarden);
         return "redirect:/garden/{idGarden}";
     }
+
+    @GetMapping("/{idSquare}/delete")
+    public String deleteSquare(@PathVariable("idGarden") Integer idGarden, @PathVariable("idSquare") Integer idSquare, RedirectAttributes redirectAttributes) {
+        this.squareService.getOne(idSquare).ifPresent(this.squareService::deleteSquare);
+        redirectAttributes.addAttribute("idGarden", idGarden);
+        return "redirect:/garden/{idGarden}";
+    }
 }

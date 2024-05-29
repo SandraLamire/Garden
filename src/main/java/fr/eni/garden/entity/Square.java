@@ -37,7 +37,7 @@ public class Square {
     @ToString.Exclude
     private Garden garden;
 
-    @OneToMany(mappedBy = "square", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "square", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<Planting> plantingList;
 
     @Override

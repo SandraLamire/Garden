@@ -66,6 +66,14 @@
                                         <i class="icon-map-marker"></i>
                                         <p class="mx-2" th:text="${garden.location} + ' - ' + ${garden.city}"></p>
                                     </div>
+                                    <div class="divide-x divide-gray-300">
+                                        <button class="px-2 text-md font-medium text-gray-500 bg-transparent focus:outline-none hover:text-red-500 focus:z-10 focus:ring-4 focus:ring-gray-100"
+                                                type="button">
+                                            <a th:href="@{/garden/{idGarden}/delete(idGarden=${garden.idGarden})}">
+                                                <i class="icon-trash"></i>
+                                            </a>
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </a>

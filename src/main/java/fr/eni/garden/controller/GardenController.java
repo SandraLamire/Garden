@@ -47,5 +47,9 @@ public class GardenController {
         return "garden";
     }
 
-
+    @GetMapping("/{idGarden}/delete")
+    public String deleteGarden(@PathVariable("idGarden") Integer idGarden) {
+        this.gardenService.getGarden(idGarden).ifPresent(this.gardenService::deleteGarden);
+        return "redirect:/garden";
+    }
 }

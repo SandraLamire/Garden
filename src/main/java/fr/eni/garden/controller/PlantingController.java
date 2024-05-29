@@ -64,4 +64,11 @@ public class PlantingController {
         redirectAttributes.addAttribute("idGarden", idGarden);
         return "redirect:/garden/{idGarden}";
     }
+
+    @GetMapping("/{idPlanting}/delete")
+    public String deletePlanting(@PathVariable("idGarden") Integer idGarden, @PathVariable("idPlanting") Integer idPlanting, RedirectAttributes redirectAttributes) {
+        this.plantingService.getPlanting(idPlanting).ifPresent(this.plantingService::deletePlanting);
+        redirectAttributes.addAttribute("idGarden", idGarden);
+        return "redirect:/garden/{idGarden}";
+    }
 }

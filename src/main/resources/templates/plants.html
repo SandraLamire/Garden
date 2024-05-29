@@ -59,6 +59,14 @@
                                     <i class="icon-tag"></i>
                                     <p th:text="${plant.plantType}" class="mx-2"></p>
                                 </div>
+                                <div class="divide-x divide-gray-300">
+                                    <button class="px-2 text-md font-medium text-gray-500 bg-transparent focus:outline-none hover:text-red-500 focus:z-10 focus:ring-4 focus:ring-gray-100"
+                                            type="button">
+                                        <a th:href="@{/plant/{idPlant}/delete(idPlant=${plant.idPlant})}">
+                                            <i class="icon-trash"></i>
+                                        </a>
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>

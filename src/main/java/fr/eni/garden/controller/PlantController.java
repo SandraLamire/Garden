@@ -9,10 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("plant")
@@ -51,6 +48,13 @@ public class PlantController {
             System.out.println(errors);
             return "addPlant";
         }
+        return "redirect:/plant";
+    }
+
+    @GetMapping("/{idPlant}/delete")
+    public String deletePlant(@PathVariable("idPlant") Integer idPlant) {
+        this.plantService.getOne(idPlant).ifPresent(this.plantService::deletePlant);
+        //TODO verif using
         return "redirect:/plant";
     }
 }

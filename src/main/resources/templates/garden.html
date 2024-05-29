@@ -97,6 +97,14 @@
                                             <i class="icon-cloud"></i>
                                             <p class="mx-2" th:text="${square.exposureType}"></p>
                                         </div>
+                                        <div class="divide-x divide-gray-300">
+                                            <button class="px-2 text-md font-medium text-gray-500 bg-transparent focus:outline-none hover:text-red-500 focus:z-10 focus:ring-4 focus:ring-gray-100"
+                                                    type="button">
+                                                <a th:href="@{/garden/{idGarden}/square/{idSquare}/delete(idGarden=${garden.idGarden},idSquare=${square.idSquare})}">
+                                                    <i class="icon-trash"></i>
+                                                </a>
+                                            </button>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="px-4 py-1 divide-y divide-gray-300">
@@ -130,7 +138,14 @@
 
                                                     <p class="text-gray-500 text-md tracking-tight"
                                                        th:text="'Harvest Date : ' + ${planting.harvestDate}"></p>
-
+                                                    <div class="divide-x divide-gray-300">
+                                                        <button class="px-2 text-md font-medium text-gray-500 bg-transparent focus:outline-none hover:text-red-500 focus:z-10 focus:ring-4 focus:ring-gray-100"
+                                                                type="button">
+                                                            <a th:href="@{/garden/{idGarden}/square/{idSquare}/planting/{idPlanting}/delete(idGarden=${garden.idGarden},idSquare=${square.idSquare},idPlanting=${planting.idPlanting})}">
+                                                                <i class="icon-trash"></i>
+                                                            </a>
+                                                        </button>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
