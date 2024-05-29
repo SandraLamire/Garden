@@ -1,6 +1,8 @@
 package fr.eni.garden.entity;
 
+import fr.eni.garden.validator.DateComparison;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 import java.time.LocalDate;
@@ -11,6 +13,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table
+@DateComparison(startDate = "setUpDate", endDate = "harvestDate", message = "Harvest date must be after set-up date")
 public class Planting {
 
     @Id
@@ -18,6 +21,7 @@ public class Planting {
     private Integer idPlanting;
 
     @Column
+    @NotNull
     private Integer quantity;
 
     @Column
@@ -33,6 +37,7 @@ public class Planting {
 
     @ManyToOne
     @JoinColumn
+    @NotNull
     private Plant plant;
 
     @Override

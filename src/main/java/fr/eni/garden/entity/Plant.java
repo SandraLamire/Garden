@@ -51,4 +51,8 @@ public class Plant {
     public String getNameAndVariety(){
         return name + " " + variety;
     }
+
+    public String getNameVarietyAndSurface(){
+        return name + " " + variety + " " + plantSurface + " cm²";
+    }
 }

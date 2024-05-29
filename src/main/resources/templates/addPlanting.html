@@ -69,8 +69,13 @@
                 </nav>
             </div>
             <div class="bg-white border border-gray-200 rounded-lg shadow m-4 p-2">
-                <div class="px-2">
-                    <h2 class="text-2xl tracking-tight text-gray-500">New Planting</h2>
+                <div class="flex justify-between items-center">
+                    <div class="px-2">
+                        <h2 class="text-2xl tracking-tight text-gray-500">New Planting</h2>
+                    </div>
+                    <div class="px-2">
+                        <p class="text-lg tracking-tight text-gray-500" th:text="'Square Remaining Surface : ' + ${square.squareRemainingSurface} + ' cm²'"></p>
+                    </div>
                 </div>
                 <div class="px-4 py-1 divide-y divide-gray-300">
                     <div>
@@ -84,7 +89,7 @@
                                         id="plant"
                                         name="plant">
                                     <option th:each="plant : ${plantList}"
-                                            th:text="${plant.nameAndVariety}" th:value="${plant.idPlant}"></option>
+                                            th:text="${plant.nameVarietyAndSurface}" th:value="${plant.idPlant}"></option>
                                 </select>
                                 <p class="text-red-500" th:errors="*{plant}"
                                    th:if="${#fields.hasErrors('plant')}"></p>

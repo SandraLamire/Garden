@@ -54,6 +54,6 @@ public class Square {
     public Integer getSquareRemainingSurface(){
         return this.plantingList.isEmpty() ?
                 this.squareSurface :
-                this.plantingList.stream().mapToInt(Planting::getPlantingSurface).sum();
+                this.squareSurface - this.plantingList.stream().mapToInt(Planting::getPlantingSurface).sum();
     }
 }

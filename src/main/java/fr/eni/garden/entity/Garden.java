@@ -53,6 +53,6 @@ public class Garden {
     }
 
     public Integer getGardenRemainingSurface() {
-        return this.squareList.isEmpty() ? this.gardenSurface : this.squareList.stream().mapToInt(Square::getSquareSurface).sum();
+        return this.squareList.isEmpty() ? this.gardenSurface : this.gardenSurface - this.squareList.stream().mapToInt(Square::getSquareSurface).sum();
     }
 }
