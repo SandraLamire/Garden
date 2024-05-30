@@ -25,12 +25,11 @@ public class PlantingServiceImpl implements PlantingService {
     @Override
     @Transactional
     public void addPlanting(Planting planting) throws PlantingException {
-        if (planting.getSquare().getSquareRemainingSurface() < planting.getPlantingSurface()) {
+        if (this.getSquareRemainingSurface(planting.getSquare()) < planting.getPlantingSurface()) {
             throw new PlantingException("There is not enough surface in this square");
         }
 
-        Map<String, Long> plantNameCounting = planting.getSquare()
-                .getPlantingList()
+        Map<String, Long> plantNameCounting = this.getPlantingsBySquare(planting.getSquare())
                 .stream()
                 .map(Planting::getPlant)
                 .collect(Collectors.groupingBy(Plant::getName, Collectors.counting()));
@@ -48,7 +47,7 @@ public class PlantingServiceImpl implements PlantingService {
     @Transactional
     public void editPlanting(Planting planting) throws PlantingException {
         Integer registeredPlantingSurface = this.getPlanting(planting.getIdPlanting()).map(Planting::getPlantingSurface).orElse(0);
-        if (planting.getSquare().getSquareRemainingSurface() + registeredPlantingSurface < planting.getPlantingSurface()) {
+        if (this.getSquareRemainingSurface(planting.getSquare()) + registeredPlantingSurface < planting.getPlantingSurface()) {
             throw new PlantingException("There is not enough surface in this square");
         }
         this.plantingRepository.save(planting);
@@ -82,5 +81,13 @@ public class PlantingServiceImpl implements PlantingService {
     @Transactional
     public List<Planting> getPlantingsBySquare(Square square) {
         return this.plantingRepository.findAllBySquare(square);
+    }
+
+    @Override
+    @Transactional
+    public Integer getSquareRemainingSurface(Square square){
+        return this.getPlantingsBySquare(square).isEmpty() ?
+                square.getSquareSurface() :
+                square.getSquareSurface() - this.getPlantingsBySquare(square).stream().mapToInt(Planting::getPlantingSurface).sum();
     }
 }

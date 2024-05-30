@@ -23,4 +23,6 @@ public interface PlantingService {
     List<Planting> getPlantingsByPlant(Plant plant);
 
     List<Planting> getPlantingsBySquare(Square square);
+
+    Integer getSquareRemainingSurface(Square square);
 }

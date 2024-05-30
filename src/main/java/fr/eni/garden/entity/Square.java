@@ -6,8 +6,6 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
-import java.util.List;
-
 @Data
 @Entity
 @AllArgsConstructor
@@ -37,9 +35,6 @@ public class Square {
     @ToString.Exclude
     private Garden garden;
 
-    @OneToMany(mappedBy = "square", fetch = FetchType.EAGER)
-    private List<Planting> plantingList;
-
     @Override
     public String toString() {
         return "\n\t" + "Square{" +
@@ -47,13 +42,6 @@ public class Square {
                 ", squareSurface=" + squareSurface +
                 ", soilType=" + soilType +
                 ", exposureType=" + exposureType +
-                ", plantingList=" + plantingList +
                 '}';
-    }
-
-    public Integer getSquareRemainingSurface(){
-        return this.plantingList.isEmpty() ?
-                this.squareSurface :
-                this.squareSurface - this.plantingList.stream().mapToInt(Planting::getPlantingSurface).sum();
     }
 }

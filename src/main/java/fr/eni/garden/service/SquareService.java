@@ -24,4 +24,8 @@ public interface SquareService {
     List<Square> getAllByGarden(Garden garden);
 
     Map<Square, List<Planting>> getPlantingsBySquare(Garden garden);
+
+    Integer getGardenRemainingSurface(Garden garden);
+
+    Map<Square, Integer> getSquareRemainingSurfaceBySquare(Garden garden);
 }

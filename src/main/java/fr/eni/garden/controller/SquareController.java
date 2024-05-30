@@ -35,6 +35,7 @@ public class SquareController {
         model.addAttribute("exposureTypes", ExposureType.values());
         Optional<Garden> garden = this.gardenService.getGarden(idGarden);
         garden.ifPresent( g -> model.addAttribute("garden", g));
+        model.addAttribute("gardenRemainingSurface", this.squareService.getGardenRemainingSurface((Garden) model.getAttribute("garden")));
     }
 
     @GetMapping("/add")

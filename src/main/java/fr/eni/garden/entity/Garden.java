@@ -8,8 +8,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
 @Entity
 @Data
 @Builder
@@ -37,8 +35,6 @@ public class Garden {
     @NotBlank
     private String city;
 
-    @OneToMany(mappedBy = "garden", fetch = FetchType.EAGER)
-    private List<Square> squareList;
 
     @Override
     public String toString() {
@@ -47,12 +43,6 @@ public class Garden {
                 ", name='" + name + '\'' +
                 ", gardenSurface=" + gardenSurface +
                 ", location='" + location + '\'' +
-                ", city='" + city + '\'' +
-                ", squareList=" + squareList +
-                '}';
-    }
-
-    public Integer getGardenRemainingSurface() {
-        return this.squareList.isEmpty() ? this.gardenSurface : this.gardenSurface - this.squareList.stream().mapToInt(Square::getSquareSurface).sum();
+                ", city='" + city + '}';
     }
 }

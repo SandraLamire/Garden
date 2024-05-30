@@ -42,6 +42,7 @@ public class PlantingController {
         Optional<Square> square = this.squareService.getOne(idSquare);
         square.ifPresent(s -> model.addAttribute("square", s));
         model.addAttribute("plantList", this.plantService.getAll());
+        model.addAttribute("squareRemainingSurface", this.plantingService.getSquareRemainingSurface((Square) model.getAttribute("square")));
     }
 
     @GetMapping("/add")

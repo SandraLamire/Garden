@@ -35,11 +35,13 @@ public class GardenController {
     }
 
     @PostMapping("/add")
-    public String addGarden(@Valid @ModelAttribute("newGarden") Garden newGarden, BindingResult errors) {
+    public String addGarden(@Valid @ModelAttribute("newGarden") Garden newGarden, BindingResult errors, Model model) {
         if (errors.hasErrors()) {
             return "addGarden";
         }
         this.gardenService.addGarden(newGarden);
+        model.addAttribute("gardenRemainingSurface", this.squareService.getGardenRemainingSurface((Garden) model.getAttribute("garden")));
+        model.addAttribute("squareRemainingSurface", this.squareService.getSquareRemainingSurfaceBySquare((Garden) model.getAttribute("garden")));
         return "redirect:/garden";
     }
 
@@ -49,12 +51,16 @@ public class GardenController {
         garden.ifPresent(g -> model.addAttribute("garden", g));
         garden.ifPresent(g -> model.addAttribute("squareList", this.squareService.getAllByGarden(g)));
         garden.ifPresent(g -> model.addAttribute("plantingListMap", this.squareService.getPlantingsBySquare(g)));
+        model.addAttribute("gardenRemainingSurface", this.squareService.getGardenRemainingSurface((Garden) model.getAttribute("garden")));
+        model.addAttribute("squareRemainingSurface", this.squareService.getSquareRemainingSurfaceBySquare((Garden) model.getAttribute("garden")));
         return "garden";
     }
 
     @GetMapping("/{idGarden}/delete")
-    public String deleteGarden(@PathVariable("idGarden") Integer idGarden) {
+    public String deleteGarden(@PathVariable("idGarden") Integer idGarden, Model model) {
         this.gardenService.getGarden(idGarden).ifPresent(this.gardenService::deleteGarden);
+        model.addAttribute("gardenRemainingSurface", this.squareService.getGardenRemainingSurface((Garden) model.getAttribute("garden")));
+        model.addAttribute("squareRemainingSurface", this.squareService.getSquareRemainingSurfaceBySquare((Garden) model.getAttribute("garden")));
         return "redirect:/garden";
     }
 
@@ -65,10 +71,12 @@ public class GardenController {
     }
 
     @PostMapping("/{idGarden}/edit")
-    public String editGarden(@Valid @ModelAttribute("currentGarden") Garden currentGarden, BindingResult errors) {
+    public String editGarden(@Valid @ModelAttribute("currentGarden") Garden currentGarden, BindingResult errors, Model model) {
         if (errors.hasErrors()) {
             return "editGarden";
         }
+        model.addAttribute("gardenRemainingSurface", this.squareService.getGardenRemainingSurface((Garden) model.getAttribute("garden")));
+        model.addAttribute("squareRemainingSurface", this.squareService.getSquareRemainingSurfaceBySquare((Garden) model.getAttribute("garden")));
         this.gardenService.editGarden(currentGarden);
         return "redirect:/garden";
     }

@@ -73,7 +73,7 @@
                             <div>
                                 <h4 class="text-gray-500 text-bold text-xl tracking-tight">Squares</h4>
                             </div>
-                            <div th:if="${garden.gardenRemainingSurface > 0}">
+                            <div th:if="${gardenRemainingSurface > 0}">
                                 <button class="px-2 text-md font-medium text-gray-500 focus:outline-none bg-white hover:text-blue-400 focus:z-10 focus:ring-4 focus:ring-gray-100"
                                         type="button">
                                     <a th:href="@{/garden/{idGarden}/square/add(idGarden=${garden.idGarden})}">
@@ -120,7 +120,7 @@
                                                 <h4 class="text-gray-500 text-bold text-lg tracking-tight">
                                                     Plantings</h4>
                                             </div>
-                                            <div th:if="${square.squareRemainingSurface > 0}">
+                                            <div th:if="${squareRemainingSurface.get(square)}">
                                                 <button class="px-2 text-md font-medium text-gray-500 focus:outline-none bg-white hover:text-blue-400 focus:z-10 focus:ring-4 focus:ring-gray-100"
                                                         type="button">
                                                     <a th:href="@{/garden/{idGarden}/square/{idSquare}/planting/add(idGarden=${garden.idGarden},idSquare=${square.idSquare})}">

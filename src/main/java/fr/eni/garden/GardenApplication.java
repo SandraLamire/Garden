@@ -15,7 +15,6 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import java.time.LocalDate;
-import java.util.ArrayList;
 
 @SpringBootApplication
 public class GardenApplication implements CommandLineRunner {
@@ -40,18 +39,18 @@ public class GardenApplication implements CommandLineRunner {
     @Override
     public void run(String... args) {
 
-        Garden heaven = Garden.builder().name("Heaven").location("Stairway").city("Angel's city").gardenSurface(300).squareList(new ArrayList<>()).build();
-        Garden hell = Garden.builder().name("Hell").location("Highway").city("Devil's city").gardenSurface(900).squareList(new ArrayList<>()).build();
-        Garden purgatory = Garden.builder().name("Purgatory").location("Nowhere").city("Other's city").gardenSurface(600).squareList(new ArrayList<>()).build();
+        Garden heaven = Garden.builder().name("Heaven").location("Stairway").city("Angel's city").gardenSurface(300).build();
+        Garden hell = Garden.builder().name("Hell").location("Highway").city("Devil's city").gardenSurface(900).build();
+        Garden purgatory = Garden.builder().name("Purgatory").location("Nowhere").city("Other's city").gardenSurface(600).build();
 
-        Square squareHeaven1 = Square.builder().squareSurface(100).soilType(SoilType.CLAYEY).exposureType(ExposureType.SUN).plantingList(new ArrayList<>()).garden(heaven).build();
-        Square squareHeaven2 = Square.builder().squareSurface(150).soilType(SoilType.SANDY).exposureType(ExposureType.SHADE).plantingList(new ArrayList<>()).garden(heaven).build();
+        Square squareHeaven1 = Square.builder().squareSurface(100).soilType(SoilType.CLAYEY).exposureType(ExposureType.SUN).garden(heaven).build();
+        Square squareHeaven2 = Square.builder().squareSurface(150).soilType(SoilType.SANDY).exposureType(ExposureType.SHADE).garden(heaven).build();
 
-        Square squareHell1 = Square.builder().squareSurface(300).soilType(SoilType.LOAMY).exposureType(ExposureType.PARTIAL_SHADE).plantingList(new ArrayList<>()).garden(hell).build();
-        Square squareHell2 = Square.builder().squareSurface(400).soilType(SoilType.CLAYEY).exposureType(ExposureType.SUN).plantingList(new ArrayList<>()).garden(hell).build();
+        Square squareHell1 = Square.builder().squareSurface(300).soilType(SoilType.LOAMY).exposureType(ExposureType.PARTIAL_SHADE).garden(hell).build();
+        Square squareHell2 = Square.builder().squareSurface(400).soilType(SoilType.CLAYEY).exposureType(ExposureType.SUN).garden(hell).build();
 
-        Square squarePurgatory1 = Square.builder().squareSurface(200).soilType(SoilType.SANDY).exposureType(ExposureType.SHADE).plantingList(new ArrayList<>()).garden(purgatory).build();
-        Square squarePurgatory2 = Square.builder().squareSurface(200).soilType(SoilType.LOAMY).exposureType(ExposureType.PARTIAL_SHADE).plantingList(new ArrayList<>()).garden(purgatory).build();
+        Square squarePurgatory1 = Square.builder().squareSurface(200).soilType(SoilType.SANDY).exposureType(ExposureType.SHADE).garden(purgatory).build();
+        Square squarePurgatory2 = Square.builder().squareSurface(200).soilType(SoilType.LOAMY).exposureType(ExposureType.PARTIAL_SHADE).garden(purgatory).build();
 
         Plant beefHeartTomato = Plant.builder().name("Tomato").plantType(PlantType.FRUIT).variety("Beef Heart").plantSurface(10).build();
         Plant cherryTomato = Plant.builder().name("Tomato").plantType(PlantType.FRUIT).variety("Cherry").plantSurface(8).build();

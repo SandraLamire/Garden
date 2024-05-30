@@ -39,7 +39,7 @@ public class SquareServiceImpl implements SquareService {
     @Override
     @Transactional
     public void addSquare(Square square) throws SquareException {
-        if (square.getGarden().getGardenRemainingSurface() < square.getSquareSurface()) {
+        if (this.getGardenRemainingSurface(square.getGarden()) < square.getSquareSurface()) {
             throw new SquareException("There is not enough surface in this garden");
         }
         this.squareRepository.save(square);
@@ -49,7 +49,7 @@ public class SquareServiceImpl implements SquareService {
     @Transactional
     public void editSquare(Square square) throws SquareException {
         Integer registeredSquareSurface = this.getOne(square.getIdSquare()).map(Square::getSquareSurface).orElse(0);
-        if (square.getGarden().getGardenRemainingSurface() + registeredSquareSurface < square.getSquareSurface()) {
+        if (this.getGardenRemainingSurface(square.getGarden()) + registeredSquareSurface < square.getSquareSurface()) {
             throw new SquareException("There is not enough surface in this garden");
         }
         this.squareRepository.save(square);
@@ -58,16 +58,34 @@ public class SquareServiceImpl implements SquareService {
     @Override
     @Transactional
     public void deleteSquare(Square square) {
-        square.getPlantingList().forEach(this.plantingService::deletePlanting);
+        this.plantingService.getPlantingsBySquare(square).forEach(this.plantingService::deletePlanting);
         this.squareRepository.delete(square);
     }
 
     @Override
+    @Transactional
     public List<Square> getAllByGarden(Garden garden) {
         return this.squareRepository.findAllByGarden(garden);
     }
 
+    @Override
+    @Transactional
     public Map<Square, List<Planting>> getPlantingsBySquare(Garden garden) {
         return this.getAllByGarden(garden).stream().collect(Collectors.toMap(square -> square, this.plantingService::getPlantingsBySquare));
     }
+
+    @Override
+    @Transactional
+    public Integer getGardenRemainingSurface(Garden garden) {
+        List<Square> squareList = this.getAllByGarden(garden);
+        return squareList.isEmpty() ? garden.getGardenSurface() : garden.getGardenSurface() - squareList.stream().mapToInt(Square::getSquareSurface).sum();
+    }
+
+    @Override
+    @Transactional
+    public Map<Square, Integer> getSquareRemainingSurfaceBySquare(Garden garden){
+        return this.getAllByGarden(garden).stream().collect(Collectors.toMap(square -> square, this.plantingService::getSquareRemainingSurface));
+
+    }
+
 }

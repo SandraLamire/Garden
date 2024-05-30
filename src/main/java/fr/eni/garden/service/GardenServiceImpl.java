@@ -33,7 +33,7 @@ public class GardenServiceImpl implements GardenService {
     @Override
     @Transactional
     public void deleteGarden(Garden garden) {
-        garden.getSquareList().forEach(this.squareService::deleteSquare);
+        this.squareService.getAllByGarden(garden).forEach(this.squareService::deleteSquare);
         this.gardenRepository.delete(garden);
     }
 
