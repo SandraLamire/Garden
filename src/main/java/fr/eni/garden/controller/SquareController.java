@@ -64,4 +64,26 @@ public class SquareController {
         redirectAttributes.addAttribute("idGarden", idGarden);
         return "redirect:/garden/{idGarden}";
     }
+
+    @GetMapping("/{idSquare}/edit")
+    public String showEditSquare(@PathVariable("idSquare") Integer idSquare, Model model) {
+        this.squareService.getOne(idSquare).ifPresent(s -> model.addAttribute("currentSquare", s));
+        return "editSquare";
+    }
+
+    @PostMapping("/{idSquare}/edit")
+    public String editSquare(@PathVariable("idGarden") Integer idGarden, @Valid @ModelAttribute("currentSquare") Square currentSquare, BindingResult errors, RedirectAttributes redirectAttributes, Model model) {
+        if (errors.hasErrors()) {
+            return "editSquare";
+        }
+        try {
+            currentSquare.setGarden((Garden) model.getAttribute("garden"));
+            this.squareService.editSquare(currentSquare);
+        } catch (SquareException squareException) {
+            errors.addError(new ObjectError("globalError", squareException.getMessage()));
+            return "editSquare";
+        }
+        redirectAttributes.addAttribute("idGarden", idGarden);
+        return "redirect:/garden/{idGarden}";
+    }
 }

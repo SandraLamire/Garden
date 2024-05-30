@@ -46,7 +46,8 @@ public class SquareServiceImpl implements SquareService {
     @Override
     @Transactional
     public void editSquare(Square square) throws SquareException {
-        if (square.getGarden().getGardenRemainingSurface() < square.getSquareSurface()) {
+        Integer registeredSquareSurface = this.getOne(square.getIdSquare()).map(Square::getSquareSurface).orElse(0);
+        if (square.getGarden().getGardenRemainingSurface() + registeredSquareSurface < square.getSquareSurface()) {
             throw new SquareException("There is not enough surface in this garden");
         }
         this.squareRepository.save(square);    }
