@@ -30,10 +30,10 @@ public class PlantingServiceImpl implements PlantingService {
             throw new PlantingException("There is not enough surface in this square");
         }
 
-        Map<String,Long> plantNameCounting = this.squareService.getPlantNameCounting(planting.getSquare());
+        Map<String, Long> plantNameCounting = this.squareService.getPlantNameCounting(planting.getSquare());
 
         if (!(plantNameCounting.get(planting.getPlant().getName()) == null)) {
-            if (plantNameCounting.get(planting.getPlant().getName()) >= 3){
+            if (plantNameCounting.get(planting.getPlant().getName()) >= 3) {
                 throw new PlantingException("There is already 3 plants with this name in this square !");
             }
         }
@@ -44,7 +44,8 @@ public class PlantingServiceImpl implements PlantingService {
     @Override
     @Transactional
     public void editPlanting(Planting planting) throws PlantingException {
-        if (planting.getSquare().getSquareRemainingSurface() < planting.getPlantingSurface()) {
+        Integer registeredPlantingSurface = this.getPlanting(planting.getIdPlanting()).map(Planting::getPlantingSurface).orElse(0);
+        if (planting.getSquare().getSquareRemainingSurface() + registeredPlantingSurface < planting.getPlantingSurface()) {
             throw new PlantingException("There is not enough surface in this square");
         }
         this.plantingRepository.save(planting);

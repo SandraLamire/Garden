@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
-import java.time.LocalDate;
+import java.util.Date;
 
 @Entity
 @Data
@@ -25,10 +25,10 @@ public class Planting {
     private Integer quantity;
 
     @Column
-    private LocalDate setUpDate;
+    private Date setUpDate;
 
     @Column
-    private LocalDate harvestDate;
+    private Date harvestDate;
 
     @ManyToOne
     @JoinColumn
@@ -51,7 +51,7 @@ public class Planting {
                 '}';
     }
 
-    public Integer getPlantingSurface(){
+    public Integer getPlantingSurface() {
         return this.getPlant().getPlantSurface() * this.getQuantity();
     }
 }

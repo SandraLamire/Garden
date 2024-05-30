@@ -9,7 +9,7 @@
             <div class="divide-x divide-gray-300">
                 <button class="px-2 text-md font-medium text-gray-500 focus:outline-none bg-white hover:text-blue-400 focus:z-10 focus:ring-4 focus:ring-gray-100"
                         type="button">
-                    <a th:href="@{/garden/{idGarden}/square/{idSquare}/edit(idGarden=${garden.idGarden}, idSquare=${currentSquare.idSquare})}">
+                    <a th:href="@{/garden/{idGarden}/square/{idSquare}/planting/{idPlanting}/edit(idGarden=${garden.idGarden}, idSquare=${square.idSquare}, idPlanting=${currentPlanting.idPlanting})}">
                         <i class="icon-refresh"></i>
                         <span class="mx-2">Refresh</span>
                     </a>
@@ -61,8 +61,8 @@
                                           stroke-linejoin="round" stroke-width="2"/>
                                 </svg>
                                 <a class="ms-1 text-sm font-medium text-gray-500 hover:text-blue-600 md:ms-2"
-                                   th:href="@{/garden/{idGarden}/square/{idSquare}/edit(idGarden=${garden.idGarden}, idSquare=${currentSquare.idSquare})}">Edit
-                                    Square</a>
+                                   th:href="@{/garden/{idGarden}/square/{idSquare}/planting/{idPlanting}/edit(idGarden=${garden.idGarden}, idSquare=${square.idSquare}, idPlanting=${currentPlanting.idPlanting})}">Edit
+                                    Planting</a>
                             </div>
                         </li>
                     </ol>
@@ -71,51 +71,64 @@
             <div class="bg-white border border-gray-200 rounded-lg shadow m-4 p-2">
                 <div class="flex justify-between items-center">
                     <div class="px-2">
-                        <h2 class="text-2xl tracking-tight text-gray-500">Edit Square</h2>
+                        <h2 class="text-2xl tracking-tight text-gray-500">Edit Planting</h2>
                     </div>
                     <div class="px-2">
                         <p class="text-lg tracking-tight text-gray-500"
-                           th:text="'Garden Remaining Surface : ' + ${garden.gardenRemainingSurface} + ' cm²'"></p>
+                           th:text="'Square Remaining Surface : ' + ${square.squareRemainingSurface} + ' cm²'"></p>
                     </div>
                 </div>
                 <div class="px-4 py-1 divide-y divide-gray-300">
                     <div>
                         <form method="post"
-                              th:action="@{/garden/{idGarden}/square/{idSquare}/edit(idGarden=${garden.idGarden}, idSquare=${currentSquare.idSquare})}"
-                              th:object="${currentSquare}">
+                              th:action="@{/garden/{idGarden}/square/{idSquare}/planting/{idPlanting}/edit(idGarden=${garden.idGarden}, idSquare=${square.idSquare}, idPlanting=${currentPlanting.idPlanting})}"
+                              th:object="${currentPlanting}">
                             <div class="py-2">
-                                <label class="block mb-2 text-sm font-medium text-gray-500" for="squareSurface">Square
-                                    Surface</label>
-                                <input class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" id="squareSurface" placeholder="0"
+                                <label class="block mb-2 text-sm font-medium text-gray-500 dark:text-white"
+                                       for="plant">Plant</label>
+                                <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                                        id="plant"
+                                        name="plant">
+                                    <option th:each="plant : ${plantList}"
+                                            th:text="${plant.nameVarietyAndSurface}"
+                                            th:value="${plant.idPlant}"></option>
+                                </select>
+                                <p class="text-red-500" th:errors="*{plant}"
+                                   th:if="${#fields.hasErrors('plant')}"></p>
+                            </div>
+                            <div class="py-2">
+                                <label class="block mb-2 text-sm font-medium text-gray-500"
+                                       for="quantity">Quantity</label>
+                                <input class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                                       id="quantity" placeholder="0"
                                        required
-                                       th:field="*{squareSurface}" type="number"/>
-                                <p class="text-red-500" th:errors="*{squareSurface}"
-                                   th:if="${#fields.hasErrors('squareSurface')}"></p>
+                                       th:field="*{quantity}" type="number"/>
+                                <p class="text-red-500" th:errors="*{quantity}"
+                                   th:if="${#fields.hasErrors('quantity')}"></p>
                             </div>
+
                             <div class="py-2">
-                                <label class="block mb-2 text-sm font-medium text-gray-500 dark:text-white"
-                                       for="soilType">Soil
-                                    Type</label>
-                                <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" id="soilType"
-                                        name="soilType">
-                                    <option th:each="soilType : ${soilTypes}"
-                                            th:text="${soilType}" th:value="${soilType}"></option>
-                                </select>
-                                <p class="text-red-500" th:errors="*{soilType}"
-                                   th:if="${#fields.hasErrors('soilType')}"></p>
+                                <label class="block mb-2 text-sm font-medium text-gray-500" for="setUpDate">Set-up
+                                    Date</label>
+                                <input class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                                       id="setUpDate" placeholder=""
+                                       required
+                                       th:field="*{setUpDate}" type="date"/>
+                                <p class="text-red-500" th:errors="*{setUpDate}"
+                                   th:if="${#fields.hasErrors('setUpDate')}"></p>
                             </div>
+
                             <div class="py-2">
-                                <label class="block mb-2 text-sm font-medium text-gray-500 dark:text-white"
-                                       for="exposureType">Exposure
-                                    Type</label>
-                                <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" id="exposureType"
-                                        name="exposureType">
-                                    <option th:each="exposureType : ${exposureTypes}"
-                                            th:text="${exposureType}" th:value="${exposureType}"></option>
-                                </select>
-                                <p class="text-red-500" th:errors="*{soilType}"
-                                   th:if="${#fields.hasErrors('soilType')}"></p>
+                                <label class="block mb-2 text-sm font-medium text-gray-500" for="harvestDate">Harvest
+                                    Date</label>
+                                <input class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                                       id="harvestDate" placeholder=""
+                                       required
+                                       th:field="*{harvestDate}" type="date"/>
+                                <p class="text-red-500" th:errors="*{harvestDate}"
+                                   th:if="${#fields.hasErrors('harvestDate')}"></p>
                             </div>
+
                             <div class="text-red-500" th:if="${#fields.hasGlobalErrors()}">
                                 <p th:each="err : ${#fields.globalErrors()}">
                                     <span th:text="${err}"></span>

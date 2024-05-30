@@ -71,4 +71,27 @@ public class PlantingController {
         redirectAttributes.addAttribute("idGarden", idGarden);
         return "redirect:/garden/{idGarden}";
     }
+
+    @GetMapping("/{idPlanting}/edit")
+    public String showEditPlanting(@PathVariable("idPlanting") Integer idPlanting, Model model) {
+        this.plantingService.getPlanting(idPlanting).ifPresent(p -> model.addAttribute("currentPlanting", p));
+        return "editPlanting";
+    }
+
+    @PostMapping("/{idPlanting}/edit")
+    public String editPlanting(@PathVariable("idGarden") Integer idGarden, @Valid @ModelAttribute("currentPlanting") Planting currentPlanting, BindingResult errors, RedirectAttributes redirectAttributes, Model model) {
+        if (errors.hasErrors()) {
+            return "editPlanting";
+        }
+        try {
+            currentPlanting.setSquare((Square) model.getAttribute("square"));
+            this.plantingService.editPlanting(currentPlanting);
+        } catch (PlantingException plantingException) {
+            errors.addError(new ObjectError("globalError", plantingException.getMessage()));
+            return "editPlanting";
+        }
+        redirectAttributes.addAttribute("idGarden", idGarden);
+        return "redirect:/garden/{idGarden}";
+    }
+
 }
