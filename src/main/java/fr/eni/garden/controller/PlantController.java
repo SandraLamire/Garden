@@ -22,13 +22,13 @@ public class PlantController {
     }
 
     @GetMapping
-    public String showAllPlant(Model model){
+    public String showAllPlant(Model model) {
         model.addAttribute("plantList", this.plantService.getAll());
         return "plants";
     }
 
     @GetMapping("/add")
-    public String showAddPlant(@ModelAttribute("newPlant")Plant newPlant, Model model){
+    public String showAddPlant(@ModelAttribute("newPlant") Plant newPlant, Model model) {
         model.addAttribute("plantTypes", PlantType.values());
         return "addPlant";
     }
@@ -37,7 +37,6 @@ public class PlantController {
     public String addPlant(@Valid @ModelAttribute("newPlant") Plant newPlant, BindingResult errors, Model model) {
         if (errors.hasErrors()) {
             model.addAttribute("plantTypes", PlantType.values());
-            System.out.println(errors);
             return "addPlant";
         }
         try {
@@ -45,7 +44,6 @@ public class PlantController {
         } catch (PlantException plantException) {
             model.addAttribute("plantTypes", PlantType.values());
             errors.addError(new ObjectError("globalError", plantException.getMessage()));
-            System.out.println(errors);
             return "addPlant";
         }
         return "redirect:/plant";
@@ -54,9 +52,31 @@ public class PlantController {
     @GetMapping("/{idPlant}/delete")
     public String deletePlant(@PathVariable("idPlant") Integer idPlant) {
         this.plantService.getOne(idPlant).ifPresent(this.plantService::deletePlant);
-        //TODO verif using
         return "redirect:/plant";
     }
+
+    @GetMapping("/{idPlant}/edit")
+    public String showEditPlant(@PathVariable("idPlant") Integer idPlant, Model model) {
+        this.plantService.getOne(idPlant).ifPresent(p -> model.addAttribute("currentPlant", p));
+        model.addAttribute("plantTypes", PlantType.values());
+        return "editPlant";
+    }
+
+    @PostMapping("/{idPlant}/edit")
+    public String editPlant(@Valid @ModelAttribute("currentPlant") Plant currentPlant, BindingResult errors, Model model) {
+        if (errors.hasErrors()) {
+            return "editPlant";
+        }
+        try {
+            this.plantService.editPlant(currentPlant);
+        } catch (PlantException plantException) {
+            model.addAttribute("plantTypes", PlantType.values());
+            errors.addError(new ObjectError("globalError", plantException.getMessage()));
+            return "editPlant";
+        }
+        return "redirect:/plant";
+    }
+
 }
 
 
