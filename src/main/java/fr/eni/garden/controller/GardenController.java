@@ -52,4 +52,19 @@ public class GardenController {
         this.gardenService.getGarden(idGarden).ifPresent(this.gardenService::deleteGarden);
         return "redirect:/garden";
     }
+
+    @GetMapping("/{idGarden}/edit")
+    public String showEditGarden(@PathVariable("idGarden") Integer idGarden, Model model) {
+        this.gardenService.getGarden(idGarden).ifPresent( g -> model.addAttribute("currentGarden", g));
+        return "editGarden";
+    }
+
+    @PostMapping("/{idGarden}/edit")
+    public String editGarden(@Valid @ModelAttribute("currentGarden") Garden currentGarden, BindingResult errors) {
+        if (errors.hasErrors()) {
+            return "editGarden";
+        }
+        this.gardenService.editGarden(currentGarden);
+        return "redirect:/garden";
+    }
 }
