@@ -14,11 +14,8 @@ import fr.eni.garden.service.SquareService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-
 import java.time.LocalDate;
-import java.time.ZoneId;
 import java.util.ArrayList;
-import java.util.Date;
 
 @SpringBootApplication
 public class GardenApplication implements CommandLineRunner {
@@ -63,8 +60,8 @@ public class GardenApplication implements CommandLineRunner {
         Plant kale = Plant.builder().name("Cabbage").plantType(PlantType.LEAF).variety("Kale").plantSurface(15).build();
         Plant cauliflower = Plant.builder().name("Cabbage").plantType(PlantType.LEAF).variety("Cauliflower").plantSurface(20).build();
 
-        Planting planting1 = Planting.builder().quantity(6).setUpDate(Date.from(LocalDate.now().plusDays(1).atStartOfDay(ZoneId.systemDefault()).toInstant())).harvestDate(Date.from(LocalDate.now().plusDays(8).atStartOfDay(ZoneId.systemDefault()).toInstant())).square(squareHeaven1).plant(beefHeartTomato).build();
-        Planting planting2 = Planting.builder().quantity(5).setUpDate(Date.from(LocalDate.now().plusDays(2).atStartOfDay(ZoneId.systemDefault()).toInstant())).harvestDate(Date.from(LocalDate.now().plusDays(9).atStartOfDay(ZoneId.systemDefault()).toInstant())).square(squareHeaven1).plant(cherryTomato).build();
+        Planting planting1 = Planting.builder().quantity(6).setUpDate(LocalDate.now().plusDays(1)).harvestDate(LocalDate.now().plusDays(8)).square(squareHeaven1).plant(beefHeartTomato).build();
+        Planting planting2 = Planting.builder().quantity(5).setUpDate(LocalDate.now().plusDays(2)).harvestDate(LocalDate.now().plusDays(9)).square(squareHeaven1).plant(cherryTomato).build();
 
         Planting planting3 = Planting.builder().quantity(50).setUpDate(LocalDate.now().plusDays(3)).harvestDate(LocalDate.now().plusDays(10)).square(squareHell1).plant(newPotato).build();
 

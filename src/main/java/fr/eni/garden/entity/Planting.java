@@ -4,8 +4,8 @@ import fr.eni.garden.validator.DateComparison;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
-
-import java.util.Date;
+import org.springframework.format.annotation.DateTimeFormat;
+import java.time.LocalDate;
 
 @Entity
 @Data
@@ -25,10 +25,12 @@ public class Planting {
     private Integer quantity;
 
     @Column
-    private Date setUpDate;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate setUpDate = LocalDate.now();
 
     @Column
-    private Date harvestDate;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate harvestDate = LocalDate.now();
 
     @ManyToOne
     @JoinColumn
