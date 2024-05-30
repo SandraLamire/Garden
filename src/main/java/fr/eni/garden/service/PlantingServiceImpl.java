@@ -2,10 +2,12 @@ package fr.eni.garden.service;
 
 import fr.eni.garden.entity.Plant;
 import fr.eni.garden.entity.Planting;
+import fr.eni.garden.entity.Square;
 import fr.eni.garden.exception.PlantingException;
 import fr.eni.garden.repository.PlantingRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -74,5 +76,11 @@ public class PlantingServiceImpl implements PlantingService {
     @Transactional
     public List<Planting> getPlantingsByPlant(Plant plant) {
         return this.plantingRepository.findAllByPlantIs(plant);
+    }
+
+    @Override
+    @Transactional
+    public List<Planting> getPlantingsBySquare(Square square) {
+        return this.plantingRepository.findAllBySquare(square);
     }
 }

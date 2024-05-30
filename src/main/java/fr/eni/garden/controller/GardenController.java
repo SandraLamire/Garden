@@ -2,6 +2,7 @@ package fr.eni.garden.controller;
 
 import fr.eni.garden.entity.Garden;
 import fr.eni.garden.service.GardenService;
+import fr.eni.garden.service.SquareService;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,9 +16,11 @@ import java.util.Optional;
 public class GardenController {
 
     private final GardenService gardenService;
+    private final SquareService squareService;
 
-    public GardenController(GardenService gardenService) {
+    public GardenController(GardenService gardenService, SquareService squareService) {
         this.gardenService = gardenService;
+        this.squareService = squareService;
     }
 
     @GetMapping
@@ -44,6 +47,8 @@ public class GardenController {
     public String showGarden(@PathVariable("idGarden") Integer idGarden, Model model) {
         Optional<Garden> garden = gardenService.getGarden(idGarden);
         garden.ifPresent(g -> model.addAttribute("garden", g));
+        garden.ifPresent(g -> model.addAttribute("squareList", this.squareService.getAllByGarden(g)));
+        garden.ifPresent(g -> model.addAttribute("plantingListMap", this.squareService.getPlantingsBySquare(g)));
         return "garden";
     }
 
@@ -55,7 +60,7 @@ public class GardenController {
 
     @GetMapping("/{idGarden}/edit")
     public String showEditGarden(@PathVariable("idGarden") Integer idGarden, Model model) {
-        this.gardenService.getGarden(idGarden).ifPresent( g -> model.addAttribute("currentGarden", g));
+        this.gardenService.getGarden(idGarden).ifPresent(g -> model.addAttribute("currentGarden", g));
         return "editGarden";
     }
 
