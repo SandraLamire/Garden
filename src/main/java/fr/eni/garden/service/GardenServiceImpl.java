@@ -1,12 +1,9 @@
 package fr.eni.garden.service;
 
-
 import fr.eni.garden.entity.Garden;
-
 import fr.eni.garden.repository.GardenRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.Optional;
 
@@ -14,9 +11,11 @@ import java.util.Optional;
 public class GardenServiceImpl implements GardenService {
 
     private final GardenRepository gardenRepository;
+    private final SquareService squareService;
 
-    public GardenServiceImpl(GardenRepository gardenRepository) {
+    public GardenServiceImpl(GardenRepository gardenRepository, SquareService squareService) {
         this.gardenRepository = gardenRepository;
+        this.squareService = squareService;
     }
 
     @Override
@@ -34,6 +33,7 @@ public class GardenServiceImpl implements GardenService {
     @Override
     @Transactional
     public void deleteGarden(Garden garden) {
+        garden.getSquareList().forEach(this.squareService::deleteSquare);
         this.gardenRepository.delete(garden);
     }
 

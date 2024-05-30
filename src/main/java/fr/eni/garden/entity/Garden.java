@@ -37,7 +37,7 @@ public class Garden {
     @NotBlank
     private String city;
 
-    @OneToMany(mappedBy = "garden", fetch = FetchType.EAGER , cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "garden", fetch = FetchType.EAGER)
     private List<Square> squareList;
 
     @Override

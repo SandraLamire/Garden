@@ -1,26 +1,23 @@
 package fr.eni.garden.service;
 
-
 import fr.eni.garden.entity.Plant;
 import fr.eni.garden.entity.Planting;
 import fr.eni.garden.exception.PlantingException;
 import fr.eni.garden.repository.PlantingRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class PlantingServiceImpl implements PlantingService {
 
     private final PlantingRepository plantingRepository;
-    private final SquareService squareService;
 
-    public PlantingServiceImpl(PlantingRepository plantingRepository, SquareService squareService) {
+    public PlantingServiceImpl(PlantingRepository plantingRepository) {
         this.plantingRepository = plantingRepository;
-        this.squareService = squareService;
     }
 
     @Override
@@ -30,7 +27,11 @@ public class PlantingServiceImpl implements PlantingService {
             throw new PlantingException("There is not enough surface in this square");
         }
 
-        Map<String, Long> plantNameCounting = this.squareService.getPlantNameCounting(planting.getSquare());
+        Map<String, Long> plantNameCounting = planting.getSquare()
+                .getPlantingList()
+                .stream()
+                .map(Planting::getPlant)
+                .collect(Collectors.groupingBy(Plant::getName, Collectors.counting()));
 
         if (!(plantNameCounting.get(planting.getPlant().getName()) == null)) {
             if (plantNameCounting.get(planting.getPlant().getName()) >= 3) {
