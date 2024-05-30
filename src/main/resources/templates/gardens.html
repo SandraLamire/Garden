@@ -52,8 +52,37 @@
                 </nav>
             </div>
             <div class="bg-white border border-gray-200 rounded-lg shadow m-4 p-2">
-                <div class="px-2 py-1">
-                    <h2 class="text-2xl tracking-tight text-gray-500">Gardens</h2>
+                <div class="flex justify-between items-center">
+                    <div class="px-2 py-1">
+                        <h2 class="text-2xl tracking-tight text-gray-500">Gardens</h2>
+                    </div>
+                    <div>
+                        <form th:action="@{/garden}" method="get" class="flex justify-between items-center">
+                            <div class="mx-2">
+                                <label class="mb-2 text-sm font-medium text-gray-500 inline-flex items-center cursor-pointer"
+                                       for="plant">
+                                    <span class="mx-2">Plant</span>
+                                <select class="bg-gray-50 border border-gray-300 text-gray-500 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                                        id="plant"
+                                        name="plant">
+                                    <option th:value="null" selected>Choose a Plant</option>
+                                    <option th:each="plant : ${plantList}"
+                                            th:text="${plant.nameVarietyAndSurface}" th:value="${plant.idPlant}"></option>
+                                </select>
+                                </label>
+                            </div>
+                            <div class="mx-2">
+                                <label for="emptySquare" class="inline-flex items-center cursor-pointer">
+                                    <input id="emptySquare" name="emptySquare" type="checkbox" value="true" class="sr-only peer">
+                                    <div class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
+                                    <span class="ms-3 text-sm font-medium text-gray-500 dark:text-gray-300">Empty Square ?</span>
+                                </label>
+                            </div>
+                            <div class="mx-2 flex justify-end">
+                                <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Filter</button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
                 <div class="px-4 py-1 divide-y divide-gray-300">
                     <div class="py-4 hover:bg-gray-100 rounded-lg" th:each="garden:${gardenList}">
@@ -82,6 +111,54 @@
                                     </div>
                                 </div>
                             </div>
+
+                            <div th:if="${mapSquaresByGarden.get(garden)} ">
+                                <div th:each="square: ${mapSquaresByGarden.get(garden)}">
+                                    <div class="flex justify-between items-center p-2">
+                                        <p class="text-gray-500 text-md tracking-tight"
+                                           th:text="'Square Surface : ' + ${square.squareSurface} + ' cm²'"></p>
+                                        <div class="flex justify-between items-center">
+                                            <div class="text-gray-500 text-md tracking-tight flex justify-between items-center">
+                                                <i class="icon-tag"></i>
+                                                <p class="mx-2" th:text="${square.soilType}"></p>
+                                            </div>
+                                            <div class="text-gray-500 text-md tracking-tight flex justify-between items-center">
+                                                <i class="icon-cloud"></i>
+                                                <p class="mx-2" th:text="${square.exposureType}"></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="px-4 py-1 divide-y divide-gray-300">
+                                        <div th:if="${!mapPlantingsBySquare.get(square)?.isEmpty()}">
+                                            <div class="flex items-center">
+                                                <div>
+                                                    <h4 class="text-gray-500 text-bold text-lg tracking-tight">
+                                                        Plantings </h4>
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <div th:each="planting: ${mapPlantingsBySquare.get(square)}">
+                                                    <div class="flex justify-between items-center p-2">
+
+                                                        <p class="text-gray-500 text-md tracking-tight"
+                                                           th:text="${planting.plant.name} + ' ' + ${planting.plant.variety} + ' (' + ${planting.quantity} + ')'"></p>
+
+                                                        <p class="text-gray-500 text-md tracking-tight"
+                                                           th:text="'Planting Surface : ' + ${planting.plantingSurface} + ' cm²'"></p>
+
+                                                        <p class="text-gray-500 text-md tracking-tight"
+                                                           th:text="'Set-up Date : ' + ${planting.setUpDate}"></p>
+
+                                                        <p class="text-gray-500 text-md tracking-tight"
+                                                           th:text="'Harvest Date : ' + ${planting.harvestDate}"></p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
                         </a>
                     </div>
                 </div>

@@ -23,7 +23,7 @@ public class PlantController {
 
     @GetMapping
     public String showAllPlant(Model model) {
-        model.addAttribute("plantList", this.plantService.getAll());
+        model.addAttribute("plantList", this.plantService.getPlants());
         return "plants";
     }
 
@@ -51,13 +51,13 @@ public class PlantController {
 
     @GetMapping("/{idPlant}/delete")
     public String deletePlant(@PathVariable("idPlant") Integer idPlant) {
-        this.plantService.getOne(idPlant).ifPresent(this.plantService::deletePlant);
+        this.plantService.getPlant(idPlant).ifPresent(this.plantService::deletePlant);
         return "redirect:/plant";
     }
 
     @GetMapping("/{idPlant}/edit")
     public String showEditPlant(@PathVariable("idPlant") Integer idPlant, Model model) {
-        this.plantService.getOne(idPlant).ifPresent(p -> model.addAttribute("currentPlant", p));
+        this.plantService.getPlant(idPlant).ifPresent(p -> model.addAttribute("currentPlant", p));
         model.addAttribute("plantTypes", PlantType.values());
         return "editPlant";
     }

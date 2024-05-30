@@ -1,7 +1,9 @@
 package fr.eni.garden.controller;
 
 import fr.eni.garden.entity.Garden;
+import fr.eni.garden.entity.Plant;
 import fr.eni.garden.service.GardenService;
+import fr.eni.garden.service.PlantService;
 import fr.eni.garden.service.SquareService;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
@@ -17,15 +19,20 @@ public class GardenController {
 
     private final GardenService gardenService;
     private final SquareService squareService;
+    private final PlantService plantService;
 
-    public GardenController(GardenService gardenService, SquareService squareService) {
+    public GardenController(GardenService gardenService, SquareService squareService, PlantService plantService) {
         this.gardenService = gardenService;
         this.squareService = squareService;
+        this.plantService = plantService;
     }
 
     @GetMapping
-    public String showAllGardens(Model model) {
+    public String showAllGardens(@RequestParam(name = "plant", required = false) Plant plant, @RequestParam(name = "emptySquare", required = false) boolean emptySquare , Model model) {
         model.addAttribute("gardenList", this.gardenService.getGardens());
+        model.addAttribute("mapSquaresByGarden", this.gardenService.getMapSquaresByGarden(emptySquare, plant));
+        model.addAttribute("mapPlantingsBySquare", this.squareService.getMapPlantingsBySquare(emptySquare, plant));
+        model.addAttribute("plantList", this.plantService.getPlants());
         return "gardens";
     }
 
@@ -49,7 +56,7 @@ public class GardenController {
     public String showGarden(@PathVariable("idGarden") Integer idGarden, Model model) {
         Optional<Garden> garden = gardenService.getGarden(idGarden);
         garden.ifPresent(g -> model.addAttribute("garden", g));
-        garden.ifPresent(g -> model.addAttribute("squareList", this.squareService.getAllByGarden(g)));
+        garden.ifPresent(g -> model.addAttribute("squareList", this.squareService.getSquaresByGarden(g)));
         garden.ifPresent(g -> model.addAttribute("plantingListMap", this.squareService.getPlantingsBySquare(g)));
         model.addAttribute("gardenRemainingSurface", this.squareService.getGardenRemainingSurface((Garden) model.getAttribute("garden")));
         model.addAttribute("squareRemainingSurface", this.squareService.getSquareRemainingSurfaceBySquare((Garden) model.getAttribute("garden")));

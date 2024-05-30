@@ -1,12 +1,14 @@
 package fr.eni.garden.service;
 
 
+import fr.eni.garden.entity.Garden;
 import fr.eni.garden.entity.Plant;
 import fr.eni.garden.entity.Planting;
 import fr.eni.garden.entity.Square;
 import fr.eni.garden.exception.PlantingException;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 public interface PlantingService {

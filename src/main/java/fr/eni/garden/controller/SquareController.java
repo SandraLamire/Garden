@@ -61,14 +61,14 @@ public class SquareController {
 
     @GetMapping("/{idSquare}/delete")
     public String deleteSquare(@PathVariable("idGarden") Integer idGarden, @PathVariable("idSquare") Integer idSquare, RedirectAttributes redirectAttributes) {
-        this.squareService.getOne(idSquare).ifPresent(this.squareService::deleteSquare);
+        this.squareService.getSquare(idSquare).ifPresent(this.squareService::deleteSquare);
         redirectAttributes.addAttribute("idGarden", idGarden);
         return "redirect:/garden/{idGarden}";
     }
 
     @GetMapping("/{idSquare}/edit")
     public String showEditSquare(@PathVariable("idSquare") Integer idSquare, Model model) {
-        this.squareService.getOne(idSquare).ifPresent(s -> model.addAttribute("currentSquare", s));
+        this.squareService.getSquare(idSquare).ifPresent(s -> model.addAttribute("currentSquare", s));
         return "editSquare";
     }
 

@@ -9,9 +9,9 @@ import java.util.Optional;
 
 public interface PlantService {
 
-    Optional<Plant> getOne(Integer idPlant);
+    Optional<Plant> getPlant(Integer idPlant);
 
-    List<Plant> getAll();
+    List<Plant> getPlants();
 
     void addPlant(Plant plant) throws PlantException;
 

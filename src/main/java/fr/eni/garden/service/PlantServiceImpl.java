@@ -25,20 +25,20 @@ public class PlantServiceImpl implements PlantService {
 
     @Override
     @Transactional
-    public Optional<Plant> getOne(Integer idPlant) {
+    public Optional<Plant> getPlant(Integer idPlant) {
         return this.plantRepository.findById(idPlant);
     }
 
     @Override
     @Transactional
-    public List<Plant> getAll() {
+    public List<Plant> getPlants() {
         return (List<Plant>) this.plantRepository.findAll();
     }
 
     @Override
     @Transactional
     public void addPlant(Plant plant) throws PlantException {
-        List<Plant> similarPlants = this.getAll().stream().filter(p -> plant.getNameAndVariety().equals(p.getNameAndVariety())).toList();
+        List<Plant> similarPlants = this.getPlants().stream().filter(p -> plant.getNameAndVariety().equals(p.getNameAndVariety())).toList();
         if (!similarPlants.isEmpty()) {
             throw new PlantException("This plant already exist !");
         }
@@ -48,7 +48,7 @@ public class PlantServiceImpl implements PlantService {
     @Override
     @Transactional
     public void editPlant(Plant plant) throws PlantException {
-        List<Plant> similarPlants = this.getAll().stream().filter(p -> plant.getNameAndVariety().equals(p.getNameAndVariety())).toList();
+        List<Plant> similarPlants = this.getPlants().stream().filter(p -> plant.getNameAndVariety().equals(p.getNameAndVariety())).toList();
         boolean isCurrentPlantAlreadyExist = similarPlants.stream().map(p -> Objects.equals(p.getIdPlant(), plant.getIdPlant())).toList().contains(true);
         if (!similarPlants.isEmpty() && !isCurrentPlantAlreadyExist) {
             throw new PlantException("This plant already exist !");

@@ -39,9 +39,9 @@ public class PlantingController {
     public void initModel(@PathVariable("idGarden") Integer idGarden, @PathVariable("idSquare") Integer idSquare, Model model) {
         Optional<Garden> garden = this.gardenService.getGarden(idGarden);
         garden.ifPresent(g -> model.addAttribute("garden", g));
-        Optional<Square> square = this.squareService.getOne(idSquare);
+        Optional<Square> square = this.squareService.getSquare(idSquare);
         square.ifPresent(s -> model.addAttribute("square", s));
-        model.addAttribute("plantList", this.plantService.getAll());
+        model.addAttribute("plantList", this.plantService.getPlants());
         model.addAttribute("squareRemainingSurface", this.plantingService.getSquareRemainingSurface((Square) model.getAttribute("square")));
     }
 
