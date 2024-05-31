@@ -29,7 +29,7 @@ public class GardenController {
 
     @GetMapping
     public String showAllGardens(@RequestParam(name = "plant", required = false) Plant plant, @RequestParam(name = "emptySquare", required = false) boolean emptySquare , Model model) {
-        model.addAttribute("gardenList", this.gardenService.getGardens());
+        model.addAttribute("gardenList", this.gardenService.getGardensFilter(emptySquare, plant));
         model.addAttribute("mapSquaresByGarden", this.gardenService.getMapSquaresByGarden(emptySquare, plant));
         model.addAttribute("mapPlantingsBySquare", this.squareService.getMapPlantingsBySquare(emptySquare, plant));
         model.addAttribute("plantList", this.plantService.getPlants());

@@ -32,4 +32,11 @@ public interface SquareService {
 
     Map<Square, List<Planting>> getMapPlantingsBySquare(boolean emptySquare, Plant plant);
 
+    boolean isSquareEmpty(Square square);
+
+    boolean isAnySquareEmpty(List<Square> squares);
+
+    boolean isSquareHasPlantingWithPlant(Square square, Plant plant);
+
+    boolean isAnySquareHasPlantingWithPlant(List<Square> squares, Plant plant);
 }

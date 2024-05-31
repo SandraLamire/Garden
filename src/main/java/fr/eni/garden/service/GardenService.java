@@ -18,6 +18,8 @@ public interface GardenService {
 
     List<Garden> getGardens();
 
+    List<Garden> getGardensFilter(boolean emptySquare, Plant plant);
+
     Map<Garden, List<Square>> getMapSquaresByGarden(boolean emptySquare, Plant plant);
 
 }

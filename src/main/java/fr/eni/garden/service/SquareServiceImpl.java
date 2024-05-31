@@ -93,14 +93,46 @@ public class SquareServiceImpl implements SquareService {
     @Transactional
     public Map<Square, List<Planting>> getMapPlantingsBySquare(boolean emptySquare,Plant plant) {
         return this.getSquares().stream()
-                .filter(square -> !emptySquare || this.plantingService.getPlantingsBySquare(square).isEmpty())
-                .filter(square -> plant == null || this.plantingService.getPlantingsBySquare(square).stream().anyMatch(planting -> planting.getPlant().equals(plant)))
-                .collect(Collectors.toMap(
+            .filter( s -> {
+                if (emptySquare && plant == null) {
+                    return this.isSquareEmpty(s);
+                } else if (!emptySquare && plant != null) {
+                    return this.isSquareHasPlantingWithPlant(s,plant);
+                } else if (emptySquare) {
+                    return this.isSquareEmpty(s) || this.isSquareHasPlantingWithPlant(s,plant);
+                } else {
+                    return true;
+                }
+            }).collect(Collectors.toMap(
                 s -> s,
                 s -> this.plantingService.getPlantingsBySquare(s).stream()
-                        .filter(planting -> plant == null || plant.equals(planting.getPlant()))
+                    .filter(p -> plant == null || this.plantingService.isPlantingHasPlant(p, plant))
                         .collect(Collectors.toList())
-        ));
+            ));
+    }
+
+    @Override
+    @Transactional
+    public boolean isSquareEmpty(Square square) {
+        return this.plantingService.getPlantingsBySquare(square).isEmpty();
+    }
+
+    @Override
+    @Transactional
+    public boolean isAnySquareEmpty(List<Square> squares) {
+        return !squares.stream().filter(this::isSquareEmpty).toList().isEmpty();
+    }
+
+    @Override
+    @Transactional
+    public boolean isSquareHasPlantingWithPlant(Square square, Plant plant) {
+        return this.plantingService.isAnyPlantingHasPlant(this.plantingService.getPlantingsBySquare(square), plant);
+    }
+
+    @Override
+    @Transactional
+    public boolean isAnySquareHasPlantingWithPlant(List<Square> squares, Plant plant) {
+        return !squares.stream().filter(s -> this.isSquareHasPlantingWithPlant(s, plant)).toList().isEmpty();
     }
 
 }

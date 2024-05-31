@@ -67,12 +67,6 @@ public class PlantingServiceImpl implements PlantingService {
 
     @Override
     @Transactional
-    public List<Planting> getPlantings() {
-        return (List<Planting>) this.plantingRepository.findAll();
-    }
-
-    @Override
-    @Transactional
     public List<Planting> getPlantingsByPlant(Plant plant) {
         return this.plantingRepository.findAllByPlantIs(plant);
     }
@@ -90,4 +84,17 @@ public class PlantingServiceImpl implements PlantingService {
                 square.getSquareSurface() :
                 square.getSquareSurface() - this.getPlantingsBySquare(square).stream().mapToInt(Planting::getPlantingSurface).sum();
     }
+
+    @Override
+    @Transactional
+    public boolean isPlantingHasPlant(Planting planting, Plant plant) {
+        return planting.getPlant().equals(plant);
+    }
+
+    @Override
+    @Transactional
+    public boolean isAnyPlantingHasPlant(List<Planting> plantings, Plant plant) {
+        return !plantings.stream().filter(p -> this.isPlantingHasPlant(p, plant)).toList().isEmpty();
+    }
+
 }

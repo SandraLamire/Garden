@@ -15,12 +15,10 @@ public class GardenServiceImpl implements GardenService {
 
     private final GardenRepository gardenRepository;
     private final SquareService squareService;
-    private final PlantingService plantingService;
 
-    public GardenServiceImpl(GardenRepository gardenRepository, SquareService squareService, PlantingService plantingService) {
+    public GardenServiceImpl(GardenRepository gardenRepository, SquareService squareService) {
         this.gardenRepository = gardenRepository;
         this.squareService = squareService;
-        this.plantingService = plantingService;
     }
 
     @Override
@@ -56,13 +54,38 @@ public class GardenServiceImpl implements GardenService {
 
     @Override
     @Transactional
-    public Map<Garden, List<Square>> getMapSquaresByGarden(boolean emptySquare, Plant plant) {
-        return this.getGardens().stream().collect(Collectors.toMap(
-                g -> g,
-                g -> this.squareService.getSquaresByGarden(g).stream()
-                        .filter(square -> (!emptySquare || this.plantingService.getPlantingsBySquare(square).isEmpty()) && plant == null || this.plantingService.getPlantingsBySquare(square).stream().anyMatch(planting -> planting.getPlant().equals(plant)))
-                        .collect(Collectors.toList())
-        ));
+    public List<Garden> getGardensFilter(boolean emptySquare, Plant plant) {
+        return ((List<Garden>) this.gardenRepository.findAll()).stream().filter( g -> {
+            List<Square> squares = this.squareService.getSquaresByGarden(g);
+            if (emptySquare && plant == null) {
+                return this.squareService.isAnySquareEmpty(squares);
+            } else if (!emptySquare && plant != null) {
+                return this.squareService.isAnySquareHasPlantingWithPlant(squares,plant);
+            } else if (emptySquare){
+                return this.squareService.isAnySquareEmpty(squares) || this.squareService.isAnySquareHasPlantingWithPlant(squares, plant);
+            } else {
+                return true;
+            }
+        }).toList();
     }
 
+    @Override
+    @Transactional
+    public Map<Garden,List<Square>> getMapSquaresByGarden(boolean emptySquare, Plant plant) {
+        return this.getGardens().stream().collect(Collectors.toMap(
+            g -> g,
+            g -> this.squareService.getSquaresByGarden(g).stream()
+                .filter(s -> {
+                    if (emptySquare && plant == null) {
+                        return this.squareService.isSquareEmpty(s);
+                    } else if (!emptySquare && plant != null) {
+                        return this.squareService.isSquareHasPlantingWithPlant(s,plant);
+                    } else if (emptySquare) {
+                        return this.squareService.isSquareEmpty(s) || this.squareService.isSquareHasPlantingWithPlant(s,plant);
+                    } else {
+                        return true;
+                    }
+                }).collect(Collectors.toList())
+        ));
+    }
 }
