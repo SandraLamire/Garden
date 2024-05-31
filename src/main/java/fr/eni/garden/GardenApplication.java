@@ -14,6 +14,7 @@ import fr.eni.garden.service.SquareService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+
 import java.time.LocalDate;
 
 @SpringBootApplication
@@ -38,6 +39,8 @@ public class GardenApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) {
+
+        // TODO : add User
 
         Garden heaven = Garden.builder().name("Heaven").location("Stairway").city("Angel's city").gardenSurface(300).build();
         Garden hell = Garden.builder().name("Hell").location("Highway").city("Devil's city").gardenSurface(900).build();

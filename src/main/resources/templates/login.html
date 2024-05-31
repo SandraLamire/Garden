@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Login page</title>
+</head>
+<body>
+<h1>Login page</h1>
+<p data-th-text="${#ctx.session.currentUser != null} ? ${#ctx.session.currentUser} : 'Not connected!'"/>
+<form method="post" th:action="@{/login}">
+    <label for="username">Username</label>:
+    <input autofocus="autofocus" id="username" name="username" type="text"/> <br/>
+    <label for="password">Password</label>:
+    <input id="password" name="password" type="password"/> <br/>
+    <input type="submit" value="Log in"/>
+</form>
+<a data-th-href="@{/garden}">Gardens</a>
+</body>
+</html>
